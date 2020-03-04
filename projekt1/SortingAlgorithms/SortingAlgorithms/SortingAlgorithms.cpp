@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include "MergeSort.h"
+#include "QuickSort.h"
 
 void printArray(const int* array, const int size)
 {
@@ -38,20 +39,41 @@ bool isSorted(const int* array, const int size, const bool isAscending = true)
 	}
 }
 
-int main()
+void testMergeSort()
 {
-	const int lower = 1;
-	const int upper = 200;
-	const int arraySize = 100;
+	const int lower = 0;
+	const int upper = 100;
+	const int arraySize = 15;
 	const bool isAscending = true;
 	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
 	mergeSort(array, arraySize, isAscending);
-	mergeSort(array, arraySize, !isAscending);
 	std::cout << "Array after merge sorting: ";
 	printArray(array, arraySize);
-	std::cout << "Array is " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted" << std::endl;
+	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
+}
+
+void testQuickSort()
+{
+	const int lower = 0;
+	const int upper = 100;
+	const int arraySize = 15;
+	const bool isAscending = true;
+	int* array = generateRandomArray(arraySize, lower, upper);
+	std::cout << "Original array: ";
+	printArray(array, arraySize);
+	quickSort(array, arraySize);
+	std::cout << "Array after quick sorting: ";
+	printArray(array, arraySize);
+	std::cout << "Array was " << (isSorted(array, arraySize) ? "" : "not ") << "sorted successfully" << std::endl;
+	delete[] array;
+}
+
+int main()
+{
+	testMergeSort();
+	testQuickSort();
 	return 0;
 }
