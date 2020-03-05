@@ -1,21 +1,21 @@
 #include "QuickSort.h"
 
-void quickSort(int* array, const int size)
+void quickSort(int* array, const int size, const bool isAscending)
 {
-	quickSort(array, size, 0, size - 1);
+	quickSort(array, size, 0, size - 1, isAscending);
 }
 
-void quickSort(int* array, const int size, const int left, const int right)
+void quickSort(int* array, const int size, const int left, const int right, const bool isAscending)
 {
 	if (left < right)
 	{
-		int pivot = partition(array, size, left, right);
-		quickSort(array, size, left, pivot - 1);
-		quickSort(array, size, pivot + 1, right);
+		int pivot = partition(array, size, left, right, isAscending);
+		quickSort(array, size, left, pivot - 1, isAscending);
+		quickSort(array, size, pivot + 1, right, isAscending);
 	}
 }
 
-int partition(int* array, const int size, const int left, const int right)
+int partition(int* array, const int size, const int left, const int right, const bool isAscending)
 {
 	int pivotIndex = choosePivot(left, right);
 	int pivotValue = array[pivotIndex];
@@ -23,10 +23,21 @@ int partition(int* array, const int size, const int left, const int right)
 	swap(array, pivotIndex, right);
 	for (int i = left; i < right; i++)
 	{
-		if (array[i] < pivotValue)
+		if (isAscending)
 		{
-			swap(array, currentPosition, i);
-			currentPosition++;
+			if (array[i] <= pivotValue)
+			{
+				swap(array, currentPosition, i);
+				currentPosition++;
+			}
+		}
+		else
+		{
+			if (array[i] > pivotValue)
+			{
+				swap(array, currentPosition, i);
+				currentPosition++;
+			}
 		}
 	}
 	swap(array, currentPosition, right);

@@ -60,14 +60,14 @@ void testQuickSort()
 	const int lower = 0;
 	const int upper = 100;
 	const int arraySize = 15;
-	const bool isAscending = true;
+	const bool isAscending = false;
 	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
-	quickSort(array, arraySize);
+	quickSort(array, arraySize, isAscending);
 	std::cout << "Array after quick sorting: ";
 	printArray(array, arraySize);
-	std::cout << "Array was " << (isSorted(array, arraySize) ? "" : "not ") << "sorted successfully" << std::endl;
+	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
 }
 
