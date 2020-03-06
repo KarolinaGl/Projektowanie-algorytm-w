@@ -55,4 +55,3 @@ void swap(int* array, const int firstIndex, const int SecondIndex)
 	array[firstIndex] = array[SecondIndex];
 	array[SecondIndex] = temp;
 }
-

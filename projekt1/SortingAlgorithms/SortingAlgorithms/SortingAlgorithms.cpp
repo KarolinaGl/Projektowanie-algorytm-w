@@ -2,13 +2,8 @@
 #include <random>
 #include "MergeSort.h"
 #include "QuickSort.h"
-
-void printArray(const int* array, const int size)
-{
-	for (int i = 0; i < size; i++)
-		std::cout << array[i] << " ";
-	std::cout << std::endl;
-}
+#include "IntroSort.h"
+#include "Utility.h"
 
 int* generateRandomArray(const int size, const int lowerBound = 1, const int upperBound = 10)
 {
@@ -60,7 +55,7 @@ void testQuickSort()
 	const int lower = 0;
 	const int upper = 100;
 	const int arraySize = 15;
-	const bool isAscending = false;
+	const bool isAscending = true;
 	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
@@ -73,7 +68,18 @@ void testQuickSort()
 
 int main()
 {
-	testMergeSort();
-	testQuickSort();
+	const int lower = 0;
+	const int upper = 1000;
+	const int arraySize = 1000000;
+	const bool isAscending = true;
+	int* array = generateRandomArray(arraySize, lower, upper);
+	std::cout << "Original array: ";
+	//printArray(array, arraySize);
+	std::cout << "Array after heapify: ";
+	introSort(array, arraySize);
+	//printArray(array, arraySize);
+	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
+	delete[] array;
+
 	return 0;
 }
