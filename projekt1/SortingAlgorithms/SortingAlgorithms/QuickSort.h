@@ -7,5 +7,3 @@ void quickSort(int* array, const int size, const int left, const int right, cons
 int partition(int* array, const int size, const int left, const int right, const bool isAscending = true);
 
 int choosePivot(const int left, const int right);
-
-void swap(int* array, const int firstIndex, const int SecondIndex);

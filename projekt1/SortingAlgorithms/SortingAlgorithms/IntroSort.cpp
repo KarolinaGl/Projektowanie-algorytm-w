@@ -6,7 +6,7 @@ void introSort(int* array, int size)
 	buildMaxHeap(array, size);
 	while (size > 0)
 	{
-		swapValues(array, 0, size - 1);
+		swap(array, 0, size - 1);
 		size--;
 		siftDown(array, size, 0);
 	}
@@ -31,14 +31,7 @@ void siftDown(int* array, int size, int currentIndex)
 
 	if (biggestNodeIndex != currentIndex)
 	{
-		swapValues(array, biggestNodeIndex, currentIndex);
+		swap(array, biggestNodeIndex, currentIndex);
 		siftDown(array, size, biggestNodeIndex);
 	}
-}
-
-void swapValues(int* array, const int firstIndex, const int SecondIndex)
-{
-	int temp = array[firstIndex];
-	array[firstIndex] = array[SecondIndex];
-	array[SecondIndex] = temp;
 }

@@ -66,20 +66,23 @@ void testQuickSort()
 	delete[] array;
 }
 
-int main()
+void testHeapSort()
 {
 	const int lower = 0;
-	const int upper = 1000;
-	const int arraySize = 1000000;
+	const int upper = 100;
+	const int arraySize = 15;
 	const bool isAscending = true;
 	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
-	//printArray(array, arraySize);
+	printArray(array, arraySize);
 	std::cout << "Array after heapify: ";
 	introSort(array, arraySize);
-	//printArray(array, arraySize);
+	printArray(array, arraySize);
 	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
+}
 
+int main()
+{
 	return 0;
 }

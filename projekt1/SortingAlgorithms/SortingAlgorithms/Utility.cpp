@@ -7,3 +7,10 @@ void printArray(const int* array, const int size)
 		std::cout << array[i] << " ";
 	std::cout << std::endl;
 }
+
+void swap(int* array, const int firstIndex, const int SecondIndex)
+{
+	int temp = array[firstIndex];
+	array[firstIndex] = array[SecondIndex];
+	array[SecondIndex] = temp;
+}

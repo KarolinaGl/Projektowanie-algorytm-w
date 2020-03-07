@@ -1,4 +1,5 @@
 #include "QuickSort.h"
+#include "Utility.h"
 
 void quickSort(int* array, const int size, const bool isAscending)
 {
@@ -49,9 +50,3 @@ int choosePivot(const int left, const int right)
 	return (left + (right - left) / 2);
 }
 
-void swap(int* array, const int firstIndex, const int SecondIndex)
-{
-	int temp = array[firstIndex];
-	array[firstIndex] = array[SecondIndex];
-	array[SecondIndex] = temp;
-}
