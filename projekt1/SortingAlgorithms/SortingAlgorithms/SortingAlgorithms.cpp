@@ -75,8 +75,24 @@ void testHeapSort()
 	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
-	std::cout << "Array after heapify: ";
+	std::cout << "Array after heap sorting: ";
+	heapSort(array, arraySize);
+	printArray(array, arraySize);
+	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
+	delete[] array;
+}
+
+void testIntroSort()
+{
+	const int lower = 0;
+	const int upper = 100;
+	const int arraySize = 5;
+	const bool isAscending = true;
+	int* array = generateRandomArray(arraySize, lower, upper);
+	std::cout << "Original array: ";
+	printArray(array, arraySize);
 	introSort(array, arraySize);
+	std::cout << "Array after intro sorting: ";
 	printArray(array, arraySize);
 	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
@@ -84,5 +100,6 @@ void testHeapSort()
 
 int main()
 {
+	testIntroSort();
 	return 0;
 }

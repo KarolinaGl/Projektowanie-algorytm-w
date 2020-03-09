@@ -1,7 +1,16 @@
 #include "IntroSort.h"
+#include "QuickSort.h"
 #include "Utility.h"
 
 void introSort(int* array, int size)
+{
+	if (size >= 10)
+		quickSort(array, size);
+	else
+		heapSort(array, size);
+}
+
+void heapSort(int* array, int size)
 {
 	buildMaxHeap(array, size);
 	while (size > 0)
