@@ -4,10 +4,19 @@
 
 void introSort(int* array, int size)
 {
-	if (size >= 10)
-		quickSort(array, size);
+	introSort(array, size, 0, size - 1, true);
+}
+
+void introSort(int* array, const int size, const int left, const int right, const bool isAscending)
+{
+	if ((right - left + 1) >= 9)
+	{
+		int pivot = partition(array, size, left, right, isAscending);
+		introSort(array, size, left, pivot - 1, isAscending);
+		introSort(array, size, pivot + 1, right, isAscending);
+	}
 	else
-		heapSort(array, size);
+		heapSort(array + left, right - left + 1);
 }
 
 void heapSort(int* array, int size)

@@ -85,15 +85,15 @@ void testHeapSort()
 void testIntroSort()
 {
 	const int lower = 0;
-	const int upper = 100;
-	const int arraySize = 5;
+	const int upper = 100000000;
+	const int arraySize = 1000000;
 	const bool isAscending = true;
 	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
-	printArray(array, arraySize);
+	//printArray(array, arraySize);
 	introSort(array, arraySize);
 	std::cout << "Array after intro sorting: ";
-	printArray(array, arraySize);
+	//printArray(array, arraySize);
 	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
 }
