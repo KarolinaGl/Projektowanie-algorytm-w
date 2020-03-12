@@ -1,46 +1,17 @@
 #include <iostream>
-#include <random>
 #include "MergeSort.h"
 #include "QuickSort.h"
 #include "IntroSort.h"
 #include "Utility.h"
 
-int* generateRandomArray(const int size, const int lowerBound = 1, const int upperBound = 10)
-{
-	int* array = new int[size];
-	std::random_device dev;
-	std::mt19937 rng(dev());
-	std::uniform_int_distribution<std::mt19937::result_type> dist(lowerBound, upperBound);
-	for (int i = 0; i < size; i++)
-		array[i] = dist(rng);
-	return array;
-}
+const int lower = 0;
+const int upper = 100;
+const int arraySize = 15;
+const bool isAscending = true;
+int* array = generateRandomArray(arraySize, lower, upper);
 
-bool isSorted(const int* array, const int size, const bool isAscending = true)
+void testMergeSort(int* array, const int arraySize, const bool isAscending)
 {
-	if (isAscending)
-	{
-		for (int i = 0; i < size - 1; i++)
-			if (array[i] > array[i + 1])
-				return false;
-		return true;
-	}
-	else
-	{
-		for (int i = 0; i < size - 1; i++)
-			if (array[i] < array[i + 1])
-				return false;
-		return true;
-	}
-}
-
-void testMergeSort()
-{
-	const int lower = 0;
-	const int upper = 100;
-	const int arraySize = 15;
-	const bool isAscending = true;
-	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
 	mergeSort(array, arraySize, isAscending);
@@ -50,13 +21,8 @@ void testMergeSort()
 	delete[] array;
 }
 
-void testQuickSort()
+void testQuickSort(int* array, const int arraySize, const bool isAscending)
 {
-	const int lower = 0;
-	const int upper = 100;
-	const int arraySize = 15;
-	const bool isAscending = true;
-	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
 	quickSort(array, arraySize, isAscending);
@@ -66,13 +32,8 @@ void testQuickSort()
 	delete[] array;
 }
 
-void testHeapSort()
+void testHeapSort(int* array, const int arraySize, const bool isAscending)
 {
-	const int lower = 0;
-	const int upper = 100;
-	const int arraySize = 15;
-	const bool isAscending = true;
-	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
 	std::cout << "Array after heap sorting: ";
@@ -82,24 +43,19 @@ void testHeapSort()
 	delete[] array;
 }
 
-void testIntroSort()
+void testIntroSort(int* array, const int arraySize, const bool isAscending)
 {
-	const int lower = 0;
-	const int upper = 100000000;
-	const int arraySize = 1000000;
-	const bool isAscending = true;
-	int* array = generateRandomArray(arraySize, lower, upper);
 	std::cout << "Original array: ";
-	//printArray(array, arraySize);
+	printArray(array, arraySize);
 	introSort(array, arraySize);
 	std::cout << "Array after intro sorting: ";
-	//printArray(array, arraySize);
+	printArray(array, arraySize);
 	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
 }
 
 int main()
 {
-	testIntroSort();
+	testMergeSort(array, arraySize, isAscending);
 	return 0;
 }
