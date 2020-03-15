@@ -1,6 +1,5 @@
 #include "MergeSort.h"
 
-
 void mergeSort(int* array, const int size, const bool isAscending)
 {
 	mergeSort(array, 0, size - 1, isAscending);

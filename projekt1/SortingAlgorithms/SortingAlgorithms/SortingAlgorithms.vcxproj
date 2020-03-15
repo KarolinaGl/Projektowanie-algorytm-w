@@ -151,11 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="IntroSort.cpp" />
-    <ClCompile Include="MergeSort.cpp" />
-    <ClCompile Include="QuickSort.cpp" />
-    <ClCompile Include="SortingAlgorithms.cpp" />
-    <ClCompile Include="Utility.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="IntroSort.h" />
