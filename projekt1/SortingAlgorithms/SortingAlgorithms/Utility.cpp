@@ -5,11 +5,12 @@
 int* generateRandomArray(const int size, const int lowerBound, const int upperBound)
 {
 	int* array = new int[size];
-	std::random_device dev;
-	std::mt19937 rng(dev());
-	std::uniform_int_distribution<std::mt19937::result_type> dist(lowerBound, upperBound);
+	int range = upperBound - lowerBound + 1;
+	std::random_device device;
+	std::mt19937 rng(device());
+	std::uniform_int_distribution<std::mt19937::result_type> dist(0, range);
 	for (int i = 0; i < size; i++)
-		array[i] = dist(rng);
+		array[i] = dist(rng) + lowerBound;
 	return array;
 }
 

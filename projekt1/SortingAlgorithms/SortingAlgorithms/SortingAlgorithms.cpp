@@ -4,13 +4,13 @@
 #include "IntroSort.h"
 #include "Utility.h"
 
-const int lower = 0;
-const int upper = 100;
-const int arraySize = 15;
+const int lower = -20;
+const int upper = 20;
+const int arraySize = 20;
 const bool isAscending = true;
 int* array = generateRandomArray(arraySize, lower, upper);
 
-void testMergeSort(int* array, const int arraySize, const bool isAscending)
+void testMergeSort(int* array, const int arraySize, const bool isAscending = true)
 {
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
@@ -21,7 +21,7 @@ void testMergeSort(int* array, const int arraySize, const bool isAscending)
 	delete[] array;
 }
 
-void testQuickSort(int* array, const int arraySize, const bool isAscending)
+void testQuickSort(int* array, const int arraySize, const bool isAscending = true)
 {
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
@@ -32,7 +32,7 @@ void testQuickSort(int* array, const int arraySize, const bool isAscending)
 	delete[] array;
 }
 
-void testHeapSort(int* array, const int arraySize, const bool isAscending)
+void testHeapSort(int* array, const int arraySize, const bool isAscending = true)
 {
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
@@ -43,7 +43,7 @@ void testHeapSort(int* array, const int arraySize, const bool isAscending)
 	delete[] array;
 }
 
-void testIntroSort(int* array, const int arraySize, const bool isAscending)
+void testIntroSort(int* array, const int arraySize, const bool isAscending = true)
 {
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
@@ -56,6 +56,5 @@ void testIntroSort(int* array, const int arraySize, const bool isAscending)
 
 int main()
 {
-	testMergeSort(array, arraySize, isAscending);
 	return 0;
 }
