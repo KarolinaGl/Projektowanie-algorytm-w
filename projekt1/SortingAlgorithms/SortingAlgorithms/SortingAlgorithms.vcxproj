@@ -154,6 +154,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HeapSort.h" />
     <ClInclude Include="IntroSort.h" />
     <ClInclude Include="MergeSort.h" />
     <ClInclude Include="QuickSort.h" />

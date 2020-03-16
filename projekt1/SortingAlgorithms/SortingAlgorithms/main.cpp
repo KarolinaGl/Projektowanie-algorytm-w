@@ -3,6 +3,7 @@
 #include "QuickSort.h"
 #include "IntroSort.h"
 #include "Utility.h"
+#include "HeapSort.h"
 
 const int lower = -50;
 const int upper = 50;
