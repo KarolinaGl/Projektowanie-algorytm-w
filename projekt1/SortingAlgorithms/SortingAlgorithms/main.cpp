@@ -4,10 +4,10 @@
 #include "IntroSort.h"
 #include "Utility.h"
 
-const int lower = -20;
-const int upper = 20;
+const int lower = -50;
+const int upper = 50;
 const int arraySize = 20;
-const bool isAscending = true;
+const bool isAscending = false;
 int* array = generateRandomArray(arraySize, lower, upper);
 
 void testMergeSort(int* array, const int arraySize, const bool isAscending = true)
@@ -37,7 +37,7 @@ void testHeapSort(int* array, const int arraySize, const bool isAscending = true
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
 	std::cout << "Array after heap sorting: ";
-	heapSort(array, arraySize);
+	heapSort(array, arraySize, isAscending);
 	printArray(array, arraySize);
 	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
 	delete[] array;
@@ -47,7 +47,7 @@ void testIntroSort(int* array, const int arraySize, const bool isAscending = tru
 {
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
-	introSort(array, arraySize);
+	introSort(array, arraySize, isAscending);
 	std::cout << "Array after intro sorting: ";
 	printArray(array, arraySize);
 	std::cout << "Array was " << (isSorted(array, arraySize, isAscending) ? "" : "not ") << "sorted successfully" << std::endl;
@@ -56,14 +56,5 @@ void testIntroSort(int* array, const int arraySize, const bool isAscending = tru
 
 int main()
 {
-	char* array = new char[5];
-	array[0] = 'A';
-	array[1] = 'a';
-	array[2] = 'X';
-	array[3] = 'B';
-	array[4] = 'b';
-	printArray(array, 5);
-	introSort(array, 5, true);
-	printArray(array, 5);
 	return 0;
 }

@@ -2,39 +2,55 @@
 #include "Utility.h"
 
 template <typename T>
-void siftDown(T* array, int size, int currentIndex)
+void siftDown(T* array, int size, int currentIndex, const bool isAscending)
 {
 	int rightChildIndex = currentIndex * 2 + 2;
 	int leftChildIndex = currentIndex * 2 + 1;
 	int biggestNodeIndex = currentIndex;
-	if (rightChildIndex < size && array[rightChildIndex] > array[currentIndex])
-		biggestNodeIndex = rightChildIndex;
-	if (leftChildIndex < size && array[leftChildIndex] > array[biggestNodeIndex])
-		biggestNodeIndex = leftChildIndex;
-	if (biggestNodeIndex != currentIndex)
+	int smallestNodeIndex = currentIndex;
+	if (isAscending)
 	{
-		swap(array, biggestNodeIndex, currentIndex);
-		siftDown(array, size, biggestNodeIndex);
+		if (rightChildIndex < size && array[rightChildIndex] > array[currentIndex])
+			biggestNodeIndex = rightChildIndex;
+		if (leftChildIndex < size && array[leftChildIndex] > array[biggestNodeIndex])
+			biggestNodeIndex = leftChildIndex;
+		if (biggestNodeIndex != currentIndex)
+		{
+			swap(array, biggestNodeIndex, currentIndex);
+			siftDown(array, size, biggestNodeIndex, isAscending);
+		}
+	}
+	else
+	{
+		if (rightChildIndex < size && array[rightChildIndex] < array[currentIndex])
+			smallestNodeIndex = rightChildIndex;
+		if (leftChildIndex < size && array[leftChildIndex] < array[smallestNodeIndex])
+			smallestNodeIndex = leftChildIndex;
+		if (smallestNodeIndex != currentIndex)
+		{
+			swap(array, smallestNodeIndex, currentIndex);
+			siftDown(array, size, smallestNodeIndex, isAscending);
+		}
 	}
 }
 
 template <typename T>
-void buildMaxHeap(T* array, int size)
+void buildHeap(T* array, int size, const bool isAscending)
 {
 	int startIndex = size / 2 - 1;
 	for (int currentNode = startIndex; currentNode >= 0; currentNode--)
-		siftDown(array, size, currentNode);
+		siftDown(array, size, currentNode, isAscending);
 }
 
 template <typename T>
-void heapSort(T* array, int size)
+void heapSort(T* array, int size, const bool isAscending)
 {
-	buildMaxHeap(array, size);
+	buildHeap(array, size, isAscending);
 	while (size > 0)
 	{
 		swap(array, 0, size - 1);
 		size--;
-		siftDown(array, size, 0);
+		siftDown(array, size, 0, isAscending);
 	}
 }
 
@@ -48,12 +64,11 @@ void introSort(T* array, const int size, const int left, const int right, const 
 		introSort(array, size, pivot + 1, right, isAscending);
 	}
 	else
-		heapSort(array + left, right - left + 1);
+		heapSort(array + left, right - left + 1, isAscending);
 }
 
 template <typename T>
 void introSort(T* array, int size, const bool isAscending = true)
 {
-	introSort(array, size, 0, size - 1, true);
+	introSort(array, size, 0, size - 1, isAscending);
 }
-
