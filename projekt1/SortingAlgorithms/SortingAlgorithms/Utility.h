@@ -48,3 +48,13 @@ bool isSorted(const T* array, const int size, const bool isAscending = true)
 		return true;
 	}
 }
+
+template<typename T>
+void sortInPercent(T* array, const int size, double percent)
+{
+	if (percent == 100)
+		std::sort(array, array + size, std::greater<T>());
+	else
+		std::sort(array, array + (int)((size * percent) / 100));
+}
+
