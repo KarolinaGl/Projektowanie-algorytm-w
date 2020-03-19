@@ -14,6 +14,16 @@ int* generateRandomArray(const int size, const int lowerBound = 1, const int upp
 	return array;
 }
 
+void randomFill(int* array, const int size, const int lowerBound = -1000000000, const int upperBound = 1000000000)
+{
+	int range = upperBound - lowerBound + 1;
+	std::random_device device;
+	std::mt19937 rng(device());
+	std::uniform_int_distribution<std::mt19937::result_type> dist(0, range);
+	for (int i = 0; i < size; i++)
+		array[i] = dist(rng) + lowerBound;
+}
+
 template <typename T>
 void printArray(const T* array, const int size)
 {

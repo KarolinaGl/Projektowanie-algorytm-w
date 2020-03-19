@@ -7,15 +7,18 @@
 #include <ctime>
 #include <ratio>
 #include <chrono>
+#include <fstream>
 
 using namespace std::chrono;
 
 
-const int lower = -1000000;
-const int upper = 1000000;
+const int lower = -1000000000;
+const int upper = 1000000000;
+/*
 const int arraySize = 1000;
 const bool isAscending = false;
 int* array = generateRandomArray(arraySize, lower, upper);
+*/
 
 void testMergeSort(int* array, const int arraySize, const bool isAscending = true)
 {
@@ -78,36 +81,35 @@ double countTimeInSeconds(T* array, const int arraySize, std::string sortingType
 
 int main()
 {
-	/*
-	printArray(array, arraySize);
-	sortInPercent(array, arraySize, 0);
-	printArray(array, arraySize);
-	
-	sortInPercent(array, arraySize, 0);
-	std::cout << countTimeInSeconds(array, arraySize);
-	*/
 	int arraySizes[5] = { 10000, 50000, 100000, 500000, 1000000 };
 	double percentOfSortedElements[8] = { 0, 25, 50, 75, 95, 99, 99.7, 100 };
 	std::string sortingTypes[3] = {"merge", "quick", "intro"};
 	int numberOfLoops = 1;
+	double timeSum = 0;
 
+	std::ofstream myfile;
+	myfile.open("example.txt");	
 	for (std::string type : sortingTypes)
 	{
-		std::cout << type << " sort:\n";
+		myfile << type << " sort:\n";
 		for (double percent : percentOfSortedElements)
 		{
-			std::cout << percent << "%: \n";
+			std::cout << percent << "% \n";
 			for (int size : arraySizes)
 			{
-				std::cout << "size: " << size << "\n";
+				int* array = new int[size];
 				for (int i = 0; i < numberOfLoops; i++)
 				{
-					int* array = generateRandomArray(size, lower, upper);
+					randomFill(array, size);
 					sortInPercent(array, size, percent);
-					std::cout << countTimeInSeconds(array, arraySize, type) << "\n";
+					timeSum += countTimeInSeconds(array, size, type);
 				}
+				delete[] array;
+				myfile << timeSum / numberOfLoops << "\n";
+				timeSum = 0;
 			}
 		}
 	}
+	myfile.close();
 	return 0;
 }
