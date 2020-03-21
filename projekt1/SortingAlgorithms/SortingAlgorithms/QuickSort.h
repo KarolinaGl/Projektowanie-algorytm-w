@@ -3,7 +3,7 @@
 
 int choosePivot(const int left, const int right)
 {
-	return (left + (right - left) / 2);
+	return (left + (right - left ) / 2);
 }
 
 template <typename T>

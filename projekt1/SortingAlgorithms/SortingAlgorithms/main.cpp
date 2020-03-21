@@ -84,7 +84,7 @@ int main()
 	int arraySizes[5] = { 10000, 50000, 100000, 500000, 1000000 };
 	double percentOfSortedElements[8] = { 0, 25, 50, 75, 95, 99, 99.7, 100 };
 	std::string sortingTypes[3] = {"merge", "quick", "intro"};
-	int numberOfLoops = 1;
+	int numberOfLoops = 100;
 	double timeSum = 0;
 
 	std::ofstream myfile;
@@ -103,6 +103,7 @@ int main()
 					randomFill(array, size);
 					sortInPercent(array, size, percent);
 					timeSum += countTimeInSeconds(array, size, type);
+					//std::cout << (isSorted(array, size) ? "sorted \n" : "not sorted \n");
 				}
 				delete[] array;
 				myfile << timeSum / numberOfLoops << "\n";

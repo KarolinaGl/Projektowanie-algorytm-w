@@ -2,26 +2,21 @@
 #include <iostream>
 #include <random>
 
-int* generateRandomArray(const int size, const int lowerBound = 1, const int upperBound = 10)
+void randomFill(int* array, const int size, const int lowerBound = -100000000, const int upperBound = 100000000)
 {
-	int* array = new int[size];
 	int range = upperBound - lowerBound + 1;
 	std::random_device device;
 	std::mt19937 rng(device());
 	std::uniform_int_distribution<std::mt19937::result_type> dist(0, range);
 	for (int i = 0; i < size; i++)
 		array[i] = dist(rng) + lowerBound;
-	return array;
 }
 
-void randomFill(int* array, const int size, const int lowerBound = -1000000000, const int upperBound = 1000000000)
+int* generateRandomArray(const int size, const int lowerBound = -100000000, const int upperBound = 100000000)
 {
-	int range = upperBound - lowerBound + 1;
-	std::random_device device;
-	std::mt19937 rng(device());
-	std::uniform_int_distribution<std::mt19937::result_type> dist(0, range);
-	for (int i = 0; i < size; i++)
-		array[i] = dist(rng) + lowerBound;
+	int* array = new int[size];
+	randomFill(array, size);
+	return array;
 }
 
 template <typename T>
