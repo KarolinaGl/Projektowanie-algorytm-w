@@ -8,17 +8,10 @@
 #include <ratio>
 #include <chrono>
 #include <fstream>
-
 using namespace std::chrono;
-
 
 const int lower = -1000000000;
 const int upper = 1000000000;
-/*
-const int arraySize = 1000;
-const bool isAscending = false;
-int* array = generateRandomArray(arraySize, lower, upper);
-*/
 
 void testMergeSort(int* array, const int arraySize, const bool isAscending = true)
 {
@@ -65,7 +58,7 @@ void testIntroSort(int* array, const int arraySize, const bool isAscending = tru
 }
 
 template<typename T>
-double countTimeInSeconds(T* array, const int arraySize, std::string sortingType)
+double countTimeInMiliseconds(T* array, const int arraySize, std::string sortingType)
 {
 	high_resolution_clock::time_point start = high_resolution_clock::now();
 	if (sortingType == "merge")
@@ -76,7 +69,7 @@ double countTimeInSeconds(T* array, const int arraySize, std::string sortingType
 		introSort(array, arraySize);
 	high_resolution_clock::time_point stop = high_resolution_clock::now();
 	duration<double> time_span = duration_cast<duration<double>>(stop - start);
-	return time_span.count();
+	return time_span.count() * 1000;
 }
 
 int main()
@@ -87,11 +80,11 @@ int main()
 	int numberOfLoops = 100;
 	double timeSum = 0;
 
-	std::ofstream myfile;
-	myfile.open("example.txt");	
+	std::ofstream file;
+	file.open("results.txt");	
 	for (std::string type : sortingTypes)
 	{
-		myfile << type << " sort:\n";
+		file << type << " sort:\n";
 		for (double percent : percentOfSortedElements)
 		{
 			std::cout << percent << "% \n";
@@ -102,15 +95,15 @@ int main()
 				{
 					randomFill(array, size);
 					sortInPercent(array, size, percent);
-					timeSum += countTimeInSeconds(array, size, type);
+					timeSum += countTimeInMiliseconds(array, size, type);
 					//std::cout << (isSorted(array, size) ? "sorted \n" : "not sorted \n");
 				}
 				delete[] array;
-				myfile << timeSum / numberOfLoops << "\n";
+				file << timeSum / numberOfLoops << "\n";
 				timeSum = 0;
 			}
 		}
 	}
-	myfile.close();
+	file.close();
 	return 0;
 }
