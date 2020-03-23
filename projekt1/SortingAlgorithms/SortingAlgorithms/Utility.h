@@ -6,16 +6,16 @@ void randomFill(int* array, const int size, const int lowerBound = -100000000, c
 {
 	int range = upperBound - lowerBound + 1;
 	std::random_device device;
-	std::mt19937 rng(device());
-	std::uniform_int_distribution<std::mt19937::result_type> dist(0, range);
+	std::mt19937 generator(device());
+	std::uniform_int_distribution<std::mt19937::result_type> distribution(0, range);
 	for (int i = 0; i < size; i++)
-		array[i] = dist(rng) + lowerBound;
+		array[i] = distribution(generator) + lowerBound;
 }
 
 int* generateRandomArray(const int size, const int lowerBound = -100000000, const int upperBound = 100000000)
 {
 	int* array = new int[size];
-	randomFill(array, size);
+	randomFill(array, size, lowerBound, upperBound);
 	return array;
 }
 
@@ -62,4 +62,3 @@ void sortInPercent(T* array, const int size, double percent)
 	else
 		std::sort(array, array + (int)((size * percent) / 100));
 }
-

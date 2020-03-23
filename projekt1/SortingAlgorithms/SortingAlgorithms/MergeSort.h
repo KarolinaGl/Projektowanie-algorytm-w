@@ -46,4 +46,3 @@ void mergeSort(T* array, const int size, const bool isAscending = true)
 {
 	mergeSort(array, 0, size - 1, isAscending);
 }
-

@@ -7,7 +7,7 @@ int choosePivot(const int left, const int right)
 }
 
 template <typename T>
-int partition(T* array, const int size, const int left, const int right, const bool isAscending = true)
+int partition(T* array, const int size, const int left, const int right, const bool isAscending)
 {
 	int pivotIndex = choosePivot(left, right);
 	T pivotValue = array[pivotIndex];
