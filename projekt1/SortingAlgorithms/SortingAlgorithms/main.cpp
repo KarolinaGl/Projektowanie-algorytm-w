@@ -10,7 +10,8 @@
 #include <fstream>
 using namespace std::chrono;
 
-void testSorting(int* array, const int arraySize, std::string sortingType, const bool isAscending = true)
+template<typename T>
+void testSorting(T* array, const int arraySize, std::string sortingType, const bool isAscending = true)
 {
 	std::cout << "Original array: ";
 	printArray(array, arraySize);
@@ -80,6 +81,5 @@ void testSortingSpeed()
 
 int main()
 {
-	testSortingSpeed();
 	return 0;
 }
