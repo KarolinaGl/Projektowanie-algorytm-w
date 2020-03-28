@@ -1,19 +1,17 @@
 #pragma once
 
+template <typename T>
 class Node
 {
-	int element;
-	Node* next;
-
 public:
+	T element;
+	Node<T>* next;
 
-	int getElement() { return element; }
+	T getElement() { return element; }
 
-	void setElement(int element) { this->element = element; }
+	void setElement(T element) { this->element = element; }
 
 	Node* getNext() { return next; }
 
 	void setNext(Node* next) { this->next = next; }
-
-	friend class LinkedList;
 };

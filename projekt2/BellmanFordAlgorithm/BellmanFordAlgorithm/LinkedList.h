@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include "Node.h"
 
+template <typename T>
 class LinkedList
 {
-	Node* head;
+	Node<T>* head;
 
 public:
 	LinkedList() 
@@ -14,9 +15,9 @@ public:
 
 	~LinkedList() {}
 
-	int front();
+	T front();
 
-	void addFront(const int& element);
+	void addFront(const T& element);
 
 	void removeFront();
 
@@ -25,17 +26,20 @@ public:
 	bool empty();
 };
 
-bool LinkedList::empty()
+template <typename T>
+bool LinkedList<T>::empty()
 {
 	return head == nullptr;
 }
 
-int LinkedList::front()
+template <typename T>
+T LinkedList<T>::front()
 {
 	return head->element;
 }
 
-void LinkedList::addFront(const int& element)
+template <typename T>
+void LinkedList<T>::addFront(const T& element)
 {
 	Node* newNode = new Node();
 	newNode->element = element;
@@ -43,7 +47,8 @@ void LinkedList::addFront(const int& element)
 	head = newNode;
 }
 
-void LinkedList::removeFront()
+template <typename T>
+void LinkedList<T>::removeFront()
 {
 	Node* firstElement = head;
 	try
@@ -57,7 +62,8 @@ void LinkedList::removeFront()
 	}
 }
 
-void LinkedList::print()
+template <typename T>
+void LinkedList<T>::print()
 {
 	Node* currentElement = head;
 	while (currentElement != nullptr)
