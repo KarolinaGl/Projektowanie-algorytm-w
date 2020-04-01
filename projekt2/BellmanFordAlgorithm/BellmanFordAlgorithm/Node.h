@@ -4,12 +4,12 @@ template <typename T>
 class Node
 {
 public:
-	T element;
+	T data;
 	Node<T>* next;
 
-	T getElement() { return element; }
+	T getElement() { return data; }
 
-	void setElement(T element) { this->element = element; }
+	void setElement(T element) { this->data = element; }
 
 	Node* getNext() { return next; }
 
