@@ -3,15 +3,16 @@
 template <typename T>
 class Node
 {
-public:
+private:
 	T data;
 	Node<T>* next;
 
-	T getElement() { return data; }
-
-	void setElement(T element) { this->data = element; }
+public:
+	T getData() { return data; }
 
 	Node* getNext() { return next; }
 
-	void setNext(Node* next) { this->next = next; }
+	void setData(T data) { this->data = data; }
+
+	void setNext(Node<T>* next) { this->next = next; }
 };
