@@ -11,7 +11,7 @@ private:
 public:
 	LinkedList() : head(nullptr) {}
 
-	~LinkedList() {}
+	~LinkedList() { while (head != nullptr) removeFront(); }
 
 	const T front() const { return head->getData(); }
 
