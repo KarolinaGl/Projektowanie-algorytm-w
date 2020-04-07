@@ -1,5 +1,5 @@
 #pragma once
-#include <stdio.h>
+#include <iostream>
 #include "Node.h"
 
 template <typename T>
@@ -9,7 +9,7 @@ private:
 	Node<T>* head;
 
 public:
-	LinkedList() : head(nullptr) {}
+	LinkedList() : head(nullptr) { }
 
 	~LinkedList() { while (head != nullptr) removeFront(); }
 
