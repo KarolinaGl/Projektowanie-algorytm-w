@@ -9,9 +9,13 @@ private:
 	Node<T>* head;
 
 public:
-	LinkedList() : head(nullptr) { }
-
-	~LinkedList() { while (head != nullptr) removeFront(); }
+	LinkedList() : head(nullptr) {}
+	~LinkedList() 
+	{ 
+		std::cout << "distraktor" << std::endl;
+		while(head != nullptr)
+			removeFront();
+	}
 
 	const T front() const { return head->getData(); }
 
@@ -36,9 +40,9 @@ public:
 		bool operator!=(Iterator it) { return this->node != it.node; }
 	};
 
-	Iterator<T> begin() { return Iterator<T>(head); }
+	Iterator<T> begin() const { return Iterator<T>(head); }
 
-	Iterator<T> end() { return Iterator<T>(nullptr); }
+	Iterator<T> end() const { return Iterator<T>(nullptr); }
 };
 
 template <typename T>

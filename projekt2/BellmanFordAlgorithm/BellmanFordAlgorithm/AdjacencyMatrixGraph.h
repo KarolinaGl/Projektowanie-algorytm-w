@@ -1,63 +1,83 @@
 #pragma once
 #include <iostream>
+#include "Utility.h"
 
 class AdjancencyMatrixGraph
 {
-private:
-	struct Neighbour
+	Edge*** matrix;
+	LinkedList<Edge*> edgesList;
+	Vertex** verticesArray;
+	int numberOfVertices;
+	int numberOfEdges;
+
+public:	
+	AdjancencyMatrixGraph(int verticesNumber, int edgesNumber) :
+		numberOfVertices(verticesNumber),
+		numberOfEdges(edgesNumber),
+		edgesList(LinkedList<Edge*>())
 	{
-		bool exists;
-
-		int weight;
-	};
-
-public:
-	int edges;
-
-	int vertices;
-	
-	Neighbour** matrix;
-
-	AdjancencyMatrixGraph(int edg, int ver) : edges(edg), vertices(ver) 
-	{
-		matrix = new Neighbour *[vertices];
-		for (int i = 0; i < vertices; ++i)
+		verticesArray = new Vertex* [numberOfVertices];
+		matrix = new Edge**[numberOfVertices];
+		for (int i = 0; i < numberOfVertices; ++i)
 		{
-			matrix[i] = new Neighbour[vertices];
-			for (int j = 0; j < vertices; ++j)
-				matrix[i][j] = {false, 0};
-		}
-	}
-
-	void addEdge(int fromIndex, int toIndex, int weight)
-	{
-		matrix[fromIndex][toIndex] = { true, weight };
-	}
-
-	void printMatrixValue()
-	{
-		for (int i = 0; i < vertices; ++i)
-		{
-			for (int j = 0; j < vertices; ++j)
-				std::cout << matrix[i][j].weight << " ";
-			std::cout << "\n";
-		}
-	}
-
-	void printMatrixExists()
-	{
-		for (int i = 0; i < vertices; ++i)
-		{
-			for (int j = 0; j < vertices; ++j)
-				std::cout << matrix[i][j].exists << " ";
-			std::cout << "\n";
+			matrix[i] = new Edge*[numberOfVertices];
+			for (int j = 0; j < numberOfVertices; ++j)
+				matrix[i][j] = nullptr;
 		}
 	}
 
 	~AdjancencyMatrixGraph() 
 	{
-		for (int i = 0; i < vertices; ++i)
-			delete[] matrix[i];
-		delete[] matrix;
+		removeVertices();
+		removeEdges();
+	}
+
+	void createVertex(int vertexIndex)
+	{
+		Vertex* vertex = new Vertex();
+		vertex->index = vertexIndex;
+		verticesArray[vertexIndex] = vertex;
+	}
+
+	void createEdge(int from, int to, int weight)
+	{
+		Edge* edge = new Edge();
+		edge->fromIndex = verticesArray[from];
+		edge->toIndex = verticesArray[to];
+		edge->weight = weight;
+		edgesList.addFront(edge);
+		matrix[from][to] = edge;
+	}
+
+	void removeVertices()
+	{
+		for (int i = 0; i < numberOfVertices; ++i)
+			delete verticesArray[i];
+		delete[] verticesArray;
+	}
+
+	void removeEdges()
+	{
+		for (int i = 0; i < numberOfEdges; ++i)
+		{
+			delete edgesList.front();
+			edgesList.removeFront();
+		}
+	}
+
+	LinkedList<Edge*>* incidentEdges(Vertex* vertex)
+	{
+		LinkedList<Edge*>* list = new LinkedList<Edge*>();
+		for (int i = 0; i < numberOfVertices; ++i)
+		{
+			if (matrix[vertex->index][i] != nullptr)
+				list->addFront(matrix[vertex->index][i]);
+		}
+		return list;
+	}
+
+	const LinkedList<Edge*>& edges()
+	{
+		return edgesList;
 	}
 };
