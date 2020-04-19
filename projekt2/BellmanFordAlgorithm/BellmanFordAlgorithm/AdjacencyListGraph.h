@@ -2,8 +2,9 @@
 #include <iostream>
 #include "LinkedList.h"
 #include "Utility.h"
+#include "Graph.h"
 
-class AdjancencyListGraph
+class AdjancencyListGraph : Graph
 {
 	LinkedList<Edge*>* adjancencyList;
 	LinkedList<Edge*> edgesList;
@@ -27,14 +28,14 @@ public:
 		removeEdges();	
 	}
 
-	void createVertex(int vertexIndex)
+	void createVertex(int vertexIndex) override
 	{
 		Vertex* vertex = new Vertex();
 		vertex->index = vertexIndex;
 		verticesArray[vertexIndex] = vertex;
 	}
 
-	void createEdge(int from, int to, int weight)
+	void createEdge(int from, int to, int weight) override
 	{
 		Edge* edge = new Edge();
 		edge->fromIndex = verticesArray[from];
@@ -44,14 +45,14 @@ public:
 		adjancencyList[from].addFront(edge);
 	}
 
-	void removeVertices()
+	void removeVertices() override
 	{
 		for (int i = 0; i < numberOfVertices; ++i)
 			delete verticesArray[i];
 		delete[] verticesArray;
 	}
 	
-	void removeEdges()
+	void removeEdges() override
 	{
 		for (int i = 0; i < numberOfEdges; ++i)
 		{
@@ -60,12 +61,12 @@ public:
 		}
 	}
 	
-	LinkedList<Edge*>* incidentEdges(Vertex* vertex)
+	LinkedList<Edge*>* incidentEdges(Vertex* vertex) override
 	{
 		return &adjancencyList[vertex->index];
 	}
 
-	const LinkedList<Edge*>& edges()
+	const LinkedList<Edge*>& edges() override
 	{
 		return edgesList;
 	}
