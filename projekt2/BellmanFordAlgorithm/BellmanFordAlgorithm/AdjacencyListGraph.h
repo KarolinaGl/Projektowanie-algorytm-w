@@ -1,24 +1,14 @@
 #pragma once
 #include <iostream>
-#include "LinkedList.h"
-#include "Utility.h"
 #include "Graph.h"
 
-class AdjancencyListGraph : Graph
+class AdjancencyListGraph : public Graph
 {
 	LinkedList<Edge*>* adjancencyList;
-	LinkedList<Edge*> edgesList;
-	Vertex** verticesArray;
-	int numberOfVertices;
-	int numberOfEdges;
-
 public: 
 	AdjancencyListGraph(int verticesNumber, int edgesNumber) :
-		numberOfVertices(verticesNumber),
-		numberOfEdges(edgesNumber),
-		edgesList(LinkedList<Edge*>())
+		Graph(verticesNumber, edgesNumber)
 	{
-		verticesArray = new Vertex*[numberOfVertices];
 		adjancencyList = new LinkedList<Edge*>[numberOfVertices];
 	}
 
@@ -61,9 +51,9 @@ public:
 		}
 	}
 	
-	LinkedList<Edge*>* incidentEdges(Vertex* vertex) override
+	const LinkedList<Edge*>& incidentEdges(Vertex* vertex) override
 	{
-		return &adjancencyList[vertex->index];
+		return adjancencyList[vertex->index];
 	}
 
 	const LinkedList<Edge*>& edges() override

@@ -1,23 +1,14 @@
 #pragma once
 #include <iostream>
-#include "Utility.h"
 #include "Graph.h"
 
-class AdjancencyMatrixGraph : Graph
+class AdjancencyMatrixGraph : public Graph
 {
 	Edge*** matrix;
-	LinkedList<Edge*> edgesList;
-	Vertex** verticesArray;
-	int numberOfVertices;
-	int numberOfEdges;
-
 public:	
 	AdjancencyMatrixGraph(int verticesNumber, int edgesNumber) :
-		numberOfVertices(verticesNumber),
-		numberOfEdges(edgesNumber),
-		edgesList(LinkedList<Edge*>())
+		Graph(verticesNumber, edgesNumber)
 	{
-		verticesArray = new Vertex* [numberOfVertices];
 		matrix = new Edge**[numberOfVertices];
 		for (int i = 0; i < numberOfVertices; ++i)
 		{
@@ -66,7 +57,7 @@ public:
 		}
 	}
 
-	LinkedList<Edge*>* incidentEdges(Vertex* vertex) override
+	const LinkedList<Edge*>& incidentEdges(Vertex* vertex) override
 	{
 		LinkedList<Edge*>* list = new LinkedList<Edge*>();
 		for (int i = 0; i < numberOfVertices; ++i)
@@ -74,7 +65,7 @@ public:
 			if (matrix[vertex->index][i] != nullptr)
 				list->addFront(matrix[vertex->index][i]);
 		}
-		return list;
+		return *list;
 	}
 
 	const LinkedList<Edge*>& edges() override

@@ -4,6 +4,20 @@
 
 class Graph
 {
+public:
+	int numberOfVertices;
+	int numberOfEdges;
+	LinkedList<Edge*> edgesList;
+	Vertex** verticesArray;
+
+	Graph(int verticesNumber, int edgesNumber) :
+		numberOfVertices(verticesNumber),
+		numberOfEdges(edgesNumber),
+		edgesList(LinkedList<Edge*>())
+	{
+		verticesArray = new Vertex * [numberOfVertices];
+	}
+
 	virtual void createVertex(int vertexIndex) {}
 
 	virtual void createEdge(int from, int to, int weight) {}
@@ -12,7 +26,10 @@ class Graph
 
 	virtual void removeEdges() {}
 
-	virtual LinkedList<Edge*>* incidentEdges(Vertex* vertex) {}
+	virtual const LinkedList<Edge*>& incidentEdges(Vertex* vertex) 
+	{
+		return LinkedList<Edge*>();
+	}
 
-	virtual const LinkedList<Edge*>& edges() {}
+	virtual const LinkedList<Edge*>& edges() { return edgesList; }
 };
