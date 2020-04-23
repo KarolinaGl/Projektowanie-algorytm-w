@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 
 struct Vertex
 {
@@ -7,7 +8,7 @@ struct Vertex
 
 struct Edge
 {
-	Vertex* fromIndex;
-	Vertex* toIndex;
+	Vertex* fromVertex;
+	Vertex* toVertex;
 	int weight;
 };

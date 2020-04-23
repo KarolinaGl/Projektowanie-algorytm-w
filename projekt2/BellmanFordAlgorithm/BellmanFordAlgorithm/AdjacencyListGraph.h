@@ -28,8 +28,8 @@ public:
 	void createEdge(int from, int to, int weight) override
 	{
 		Edge* edge = new Edge();
-		edge->fromIndex = verticesArray[from];
-		edge->toIndex = verticesArray[to];
+		edge->fromVertex = verticesArray[from];
+		edge->toVertex = verticesArray[to];
 		edge->weight = weight;
 		edgesList.addFront(edge);
 		adjancencyList[from].addFront(edge);
@@ -49,6 +49,16 @@ public:
 			delete edgesList.front();
 			edgesList.removeFront();
 		}
+	}
+
+	bool edgeExists(int fromVertex, int toVertex)
+	{
+		for (Edge* edge : adjancencyList[fromVertex])
+		{
+			if ((edge->toVertex)->index == toVertex)
+				return true;
+		}
+		return false;
 	}
 	
 	const LinkedList<Edge*>& incidentEdges(Vertex* vertex) override

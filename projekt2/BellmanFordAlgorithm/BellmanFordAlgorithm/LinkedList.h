@@ -12,7 +12,6 @@ public:
 	LinkedList() : head(nullptr) {}
 	~LinkedList() 
 	{ 
-		std::cout << "distraktor" << std::endl;
 		while(head != nullptr)
 			removeFront();
 	}
