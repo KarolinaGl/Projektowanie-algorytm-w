@@ -2,6 +2,9 @@
 #include <fstream>
 #include <string>
 #include <algorithm>
+#include <chrono>
+#include <ctime>
+#include <ratio>
 #include "Node.h"
 #include "LinkedList.h"
 #include "AdjacencyMatrixGraph.h"
@@ -9,7 +12,7 @@
 
 int maxValue = 99999999;
 
-void createRandomGraph(int numberOfVertices, int numberOfEdges)
+AdjancencyListGraph* createRandomGraph(int numberOfVertices, int numberOfEdges)
 {
 	int lowerBound = -10;
 	int upperBound = 20;
@@ -32,16 +35,18 @@ void createRandomGraph(int numberOfVertices, int numberOfEdges)
 		}
 		graph->createEdge(fromVertex, toVertex, weightDistribution(generator) + lowerBound);
 	}
+	/*
 	for (Edge* edge : graph->edges())
 	{
 		int u = (edge->fromVertex)->index;
 		int v = (edge->toVertex)->index;
 		int weight = edge->weight;
 		std::cout << u << " " << v << " " << weight << "\n";
-	}
+	}*/
+	return graph;
 }
 
-void BellmanFordAlgorithm(Graph* graph)
+int uploadDataFromFile(Graph* graph)
 {
 	std::ifstream myFile("data.txt");
 	int edges = 0;
@@ -59,16 +64,60 @@ void BellmanFordAlgorithm(Graph* graph)
 			graph->createEdge(fromIndex, toIndex, weight);
 		}
 	}
+	return startingPoint;
+}
 
+void printDistances(Graph* graph, int* distances)
+{
+	std::cout << "distances\n";
+	for (int i = 0; i < graph->numberOfVertices; ++i)
+		std::cout << i << ": " << distances[i] << "\n";
+}
+
+void printPaths(Graph* graph, int* previous, int startingPoint)
+{
+	std::cout << "paths\n";
+	for (int i = 0; i < graph->numberOfVertices; ++i)
+	{
+		LinkedList<int> list;
+		int currentVertex = i;
+		list.addFront(currentVertex);
+		while (currentVertex != startingPoint)
+		{
+			currentVertex = previous[currentVertex];
+			list.addFront(currentVertex);
+		}
+		std::cout << i << ": ";
+		for (int vertex : list)
+			std::cout << vertex << " ";
+		std::cout << "\n";
+	}
+}
+
+bool negativeCycleExists(Graph* graph, int* distances)
+{
+	for (Edge* edge : graph->edges())
+	{
+		int u = (edge->fromVertex)->index;
+		int v = (edge->toVertex)->index;
+		int weight = edge->weight;
+		if (distances[u] != maxValue && distances[v] > distances[u] + weight)
+		{
+			return true;
+			break;
+		}
+	}
+	return false;
+}
+
+void BellmanFordAlgorithm(Graph* graph)
+{
+	int startingPoint = uploadDataFromFile(graph);
 	int* distances = new int[graph->numberOfVertices];
 	int* previous = new int[graph->numberOfVertices];
-
 	for (int i = 0; i < graph->numberOfVertices; ++i)
 	{
 		distances[i] = maxValue;
-	}
-	for (int i = 0; i < graph->numberOfVertices; ++i)
-	{
 		previous[i] = NULL;
 	}
 	distances[startingPoint] = 0;
@@ -86,45 +135,31 @@ void BellmanFordAlgorithm(Graph* graph)
 			}
 		}
 	}
-	for (Edge* edge : graph->edges())
+	if (negativeCycleExists(graph, distances))
+		std::cout << "Negative cycle detected!\n";
+	else
 	{
-		int u = (edge->fromVertex)->index;
-		int v = (edge->toVertex)->index;
-		int weight = edge->weight;
-		if (distances[u] != maxValue && distances[v] > distances[u] + weight)
-			std::cout << "Negative cycle!\n";
+		printDistances(graph, distances);
+		printPaths(graph, previous, startingPoint);
 	}
-	std::cout << "distances\n";
-	for (int i = 0; i < graph->numberOfVertices; ++i)
-		std::cout << "i=" << i << " " << distances[i] << "\n";
-	std::cout << "paths\n";
-	for (int i = 0; i < graph->numberOfVertices; ++i)
-	{
-		LinkedList<int> list;
-		int currentVertex = i;
-		list.addFront(currentVertex);
-		while (currentVertex != startingPoint)
-		{
-			currentVertex = previous[currentVertex];
-			list.addFront(currentVertex);
-		}
-		std::cout << "i=" << i << " \n";
-		for (int vertex : list)
-		{
-			std::cout << vertex << " -> ";
-		}
-		std::cout << "\n";
-	}
-
 	delete[] distances;
 	delete[] previous;
+}
+
+double countAlgorithmExecutionTimeInMiliseconds(Graph* graph)
+{
+	using namespace std::chrono;
+	high_resolution_clock::time_point start = high_resolution_clock::now();
+	BellmanFordAlgorithm(graph);
+	high_resolution_clock::time_point stop = high_resolution_clock::now();
+	duration<double> time_span = duration_cast<duration<double>>(stop - start);
+	return time_span.count() * 1000;
 }
 
 int main()
 {
 	AdjancencyMatrixGraph* matrixGraph = new AdjancencyMatrixGraph(5, 6);
-	AdjancencyListGraph* listGraph = new AdjancencyListGraph(6, 9);
+	AdjancencyListGraph* listGraph = new AdjancencyListGraph(5, 6);
 	BellmanFordAlgorithm(matrixGraph);
-	//createRandomGraph(10, 5);
 	return 0;
 }
