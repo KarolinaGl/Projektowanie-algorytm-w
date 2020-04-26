@@ -12,37 +12,63 @@
 
 int maxValue = 99999999;
 
-AdjancencyListGraph* createRandomGraph(int numberOfVertices, int numberOfEdges)
+struct RandomEdge
 {
-	int lowerBound = -10;
-	int upperBound = 20;
-	int weightRange = upperBound - lowerBound + 1;
+	int fromIndex;
+	int toIndex;
+};
+
+void swapValues(RandomEdge array[], int firstIndex, int secondIndex)
+{
+	RandomEdge temp = array[firstIndex];
+	array[firstIndex] = array[secondIndex];
+	array[secondIndex] = temp;
+}
+
+template <typename G>
+G* createRandomGraph(int numberOfVertices, int percent)
+{
+	std::cout << "created" << std::endl;
+	int numberOfAllPossibleEdges = numberOfVertices * numberOfVertices - numberOfVertices;
+	int numberOfEdges = percent / 100.0 * numberOfAllPossibleEdges;
+	int lowerBound = -5;
+	int upperBound = 30;
+	int weightRange = upperBound - lowerBound;
 	std::random_device device;
 	std::mt19937 generator(device());
-	std::uniform_int_distribution<std::mt19937::result_type> verticesDistribution(0, numberOfVertices);
+	std::uniform_int_distribution<std::mt19937::result_type> verticesDistribution(0, numberOfAllPossibleEdges - 1);
 	std::uniform_int_distribution<std::mt19937::result_type> weightDistribution(0, weightRange);
-	AdjancencyListGraph* graph = new AdjancencyListGraph(numberOfVertices, numberOfEdges);
+	G* graph = new G(numberOfVertices, numberOfEdges);
 	for (int i = 0; i < numberOfVertices; ++i)
 		graph->createVertex(i);
+	RandomEdge* allPossibleEdgesArray = new RandomEdge[numberOfAllPossibleEdges];
+	int arraySize = 0;
+	for (int i = 0; i < numberOfVertices; ++i)
+	{
+		for (int j = 0; j < numberOfVertices; ++j)
+		{
+			if (i != j)
+			{
+				allPossibleEdgesArray[arraySize] = { i, j };
+				arraySize++;
+			}
+		}
+	}
 	for (int i = 0; i < numberOfEdges; ++i)
 	{
-		int fromVertex = verticesDistribution(generator);
-		int toVertex = verticesDistribution(generator);
-		while (graph->edgeExists(fromVertex, toVertex))
-		{
-			fromVertex = verticesDistribution(generator);
-			toVertex = verticesDistribution(generator);
-		}
-		graph->createEdge(fromVertex, toVertex, weightDistribution(generator) + lowerBound);
+		std::uniform_int_distribution<std::mt19937::result_type> randomVerticesDistribution(0, numberOfAllPossibleEdges - 1 - i);
+		int randomEdgeNumber = randomVerticesDistribution(generator);
+		int fromIndex = allPossibleEdgesArray[randomEdgeNumber].fromIndex;
+		int toIndex = allPossibleEdgesArray[randomEdgeNumber].toIndex;
+		int weight = weightDistribution(generator) + lowerBound;
+		graph->createEdge(fromIndex, toIndex, weight);
+		swapValues(allPossibleEdgesArray, randomEdgeNumber, numberOfAllPossibleEdges - 1 - i);
 	}
-	/*
+
 	for (Edge* edge : graph->edges())
-	{
-		int u = (edge->fromVertex)->index;
-		int v = (edge->toVertex)->index;
-		int weight = edge->weight;
-		std::cout << u << " " << v << " " << weight << "\n";
-	}*/
+		std::cout << (edge->fromVertex)->index << " " << (edge->toVertex)->index << " " << edge->weight << "\n";
+
+	delete[] allPossibleEdgesArray;
 	return graph;
 }
 
@@ -67,30 +93,39 @@ int uploadDataFromFile(Graph* graph)
 	return startingPoint;
 }
 
-void printDistances(Graph* graph, int* distances)
+void printDistances(Graph* graph, int* distances, int startingPoint)
 {
 	std::cout << "distances\n";
 	for (int i = 0; i < graph->numberOfVertices; ++i)
-		std::cout << i << ": " << distances[i] << "\n";
+	{
+		if (i != startingPoint)
+			std::cout << i << ": " << (distances[i] == maxValue ? "infinity" : std::to_string(distances[i])) << "\n";
+	}
 }
 
-void printPaths(Graph* graph, int* previous, int startingPoint)
+void printPaths(Graph* graph, int* previous, int startingPoint, int* distances)
 {
 	std::cout << "paths\n";
 	for (int i = 0; i < graph->numberOfVertices; ++i)
 	{
-		LinkedList<int> list;
-		int currentVertex = i;
-		list.addFront(currentVertex);
-		while (currentVertex != startingPoint)
+		if (i != startingPoint)
 		{
-			currentVertex = previous[currentVertex];
-			list.addFront(currentVertex);
+			if (distances[i] < maxValue)
+			{
+				LinkedList<int> list;
+				int currentVertex = i;
+				list.addFront(currentVertex);
+				while (currentVertex != startingPoint)
+				{
+					currentVertex = previous[currentVertex];
+					list.addFront(currentVertex);
+				}
+				std::cout << i << ": ";
+				for (int vertex : list)
+					std::cout << vertex << " ";
+				std::cout << "\n";
+			}
 		}
-		std::cout << i << ": ";
-		for (int vertex : list)
-			std::cout << vertex << " ";
-		std::cout << "\n";
 	}
 }
 
@@ -102,17 +137,13 @@ bool negativeCycleExists(Graph* graph, int* distances)
 		int v = (edge->toVertex)->index;
 		int weight = edge->weight;
 		if (distances[u] != maxValue && distances[v] > distances[u] + weight)
-		{
 			return true;
-			break;
-		}
 	}
 	return false;
 }
 
-void BellmanFordAlgorithm(Graph* graph)
+void BellmanFordAlgorithm(Graph* graph, int startingPoint)
 {
-	int startingPoint = uploadDataFromFile(graph);
 	int* distances = new int[graph->numberOfVertices];
 	int* previous = new int[graph->numberOfVertices];
 	for (int i = 0; i < graph->numberOfVertices; ++i)
@@ -139,18 +170,18 @@ void BellmanFordAlgorithm(Graph* graph)
 		std::cout << "Negative cycle detected!\n";
 	else
 	{
-		printDistances(graph, distances);
-		printPaths(graph, previous, startingPoint);
+		printDistances(graph, distances, startingPoint);
+		printPaths(graph, previous, startingPoint, distances);
 	}
 	delete[] distances;
 	delete[] previous;
 }
 
-double countAlgorithmExecutionTimeInMiliseconds(Graph* graph)
+double countAlgorithmExecutionTimeInMiliseconds(Graph* graph, int startingPoint)
 {
 	using namespace std::chrono;
 	high_resolution_clock::time_point start = high_resolution_clock::now();
-	BellmanFordAlgorithm(graph);
+	BellmanFordAlgorithm(graph, startingPoint);
 	high_resolution_clock::time_point stop = high_resolution_clock::now();
 	duration<double> time_span = duration_cast<duration<double>>(stop - start);
 	return time_span.count() * 1000;
@@ -158,8 +189,6 @@ double countAlgorithmExecutionTimeInMiliseconds(Graph* graph)
 
 int main()
 {
-	AdjancencyMatrixGraph* matrixGraph = new AdjancencyMatrixGraph(5, 6);
-	AdjancencyListGraph* listGraph = new AdjancencyListGraph(5, 6);
-	BellmanFordAlgorithm(matrixGraph);
+	BellmanFordAlgorithm(createRandomGraph<AdjancencyMatrixGraph>(6, 50), 2);
 	return 0;
 }

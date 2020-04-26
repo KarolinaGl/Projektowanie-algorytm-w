@@ -26,10 +26,7 @@ public:
 
 	virtual void removeEdges() {}
 
-	virtual const LinkedList<Edge*>& incidentEdges(Vertex* vertex) 
-	{
-		return LinkedList<Edge*>();
-	}
+	virtual const LinkedList<Edge*>& incidentEdges(Vertex* vertex) { throw "NotImplemented"; }
 
 	virtual const LinkedList<Edge*>& edges() { return edgesList; }
 };
