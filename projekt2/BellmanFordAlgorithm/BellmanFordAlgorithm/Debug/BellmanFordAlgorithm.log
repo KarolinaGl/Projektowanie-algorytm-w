@@ -1,6 +1,6 @@
 ﻿  main.cpp
-D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\main.cpp(33,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\main.cpp(192): message : see reference to function template instantiation 'G *createRandomGraph<AdjancencyMatrixGraph>(int,int)' being compiled
+D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\main.cpp(32,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\main.cpp(206): message : see reference to function template instantiation 'G *createRandomGraph<AdjancencyMatrixGraph>(int,int)' being compiled
           with
           [
               G=AdjancencyMatrixGraph

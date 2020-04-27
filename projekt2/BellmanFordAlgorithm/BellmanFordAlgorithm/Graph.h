@@ -1,6 +1,18 @@
 #pragma once
+#include <iostream>
 #include "LinkedList.h"
-#include "Utility.h"
+
+struct Vertex
+{
+	int index;
+};
+
+struct Edge
+{
+	Vertex* fromVertex;
+	Vertex* toVertex;
+	int weight;
+};
 
 class Graph
 {
@@ -15,18 +27,46 @@ public:
 		numberOfEdges(edgesNumber),
 		edgesList(LinkedList<Edge*>())
 	{
-		verticesArray = new Vertex * [numberOfVertices];
+		verticesArray = new Vertex* [numberOfVertices];
+		for (int i = 0; i < numberOfVertices; ++i)
+			verticesArray[i] = nullptr;
 	}
 
-	virtual void createVertex(int vertexIndex) {}
+	virtual ~Graph() 
+	{
+		removeVertices();
+		removeEdges();
+	}
+
+	void createVertex(int vertexIndex) 
+	{
+		Vertex* vertex = new Vertex();
+		vertex->index = vertexIndex;
+		verticesArray[vertexIndex] = vertex;
+	}
 
 	virtual void createEdge(int from, int to, int weight) {}
 
-	virtual void removeVertices() {}
+	void removeVertices() 
+	{
+		for (int i = 0; i < numberOfVertices; ++i)
+		{
+			if (verticesArray[i] != nullptr)
+				delete verticesArray[i];
+		}
+		delete[] verticesArray;
+	}
 
-	virtual void removeEdges() {}
+	void removeEdges() 
+	{
+		while (!edgesList.empty())
+		{
+			delete edgesList.front();
+			edgesList.removeFront();
+		}
+	}
 
 	virtual const LinkedList<Edge*>& incidentEdges(Vertex* vertex) { throw "NotImplemented"; }
 
-	virtual const LinkedList<Edge*>& edges() { return edgesList; }
+	const LinkedList<Edge*>& edges() { return edgesList; }
 };

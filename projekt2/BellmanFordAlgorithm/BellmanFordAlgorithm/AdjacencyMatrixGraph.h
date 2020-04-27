@@ -20,15 +20,9 @@ public:
 
 	~AdjancencyMatrixGraph() 
 	{
-		removeVertices();
-		removeEdges();
-	}
-
-	void createVertex(int vertexIndex) override
-	{
-		Vertex* vertex = new Vertex();
-		vertex->index = vertexIndex;
-		verticesArray[vertexIndex] = vertex;
+		for (int i = 0; i < numberOfVertices; ++i)
+			delete[] matrix[i];
+		delete[] matrix;
 	}
 
 	void createEdge(int from, int to, int weight) override
@@ -39,37 +33,5 @@ public:
 		edge->weight = weight;
 		edgesList.addFront(edge);
 		matrix[from][to] = edge;
-	}
-
-	void removeVertices() override
-	{
-		for (int i = 0; i < numberOfVertices; ++i)
-			delete verticesArray[i];
-		delete[] verticesArray;
-	}
-
-	void removeEdges() override
-	{
-		for (int i = 0; i < numberOfEdges; ++i)
-		{
-			delete edgesList.front();
-			edgesList.removeFront();
-		}
-	}
-
-	const LinkedList<Edge*>& incidentEdges(Vertex* vertex) override
-	{
-		LinkedList<Edge*>* list = new LinkedList<Edge*>();
-		for (int i = 0; i < numberOfVertices; ++i)
-		{
-			if (matrix[vertex->index][i] != nullptr)
-				list->addFront(matrix[vertex->index][i]);
-		}
-		return *list;
-	}
-
-	const LinkedList<Edge*>& edges() override
-	{
-		return edgesList;
 	}
 };
