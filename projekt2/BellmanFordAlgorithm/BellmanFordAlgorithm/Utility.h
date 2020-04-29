@@ -1,6 +1,10 @@
 #pragma once
+#include <random>
+#include <string>
+#include <algorithm>
+#include <ratio>
 
-int maxValue = 99999999;
+int infinity = 1 << 20;
 
 struct RandomEdge
 {
@@ -20,7 +24,7 @@ int uploadDataFromFile(Graph* graph)
 		for (int i = 0; i < vertices; ++i)
 			graph->createVertex(i);
 		int fromIndex, toIndex, weight;
-		for (int i = 0; i < graph->numberOfEdges; ++i)
+		for (int i = 0; i < graph->getNumberOfEdges(); ++i)
 		{
 			myFile >> fromIndex >> toIndex >> weight;
 			graph->createEdge(fromIndex, toIndex, weight);
@@ -81,21 +85,21 @@ G* createRandomGraph(int numberOfVertices, int percent)
 void printDistances(Graph* graph, int* distances, int startingPoint)
 {
 	std::cout << "distances\n";
-	for (int i = 0; i < graph->numberOfVertices; ++i)
+	for (int i = 0; i < graph->getNumberOfVertices(); ++i)
 	{
 		if (i != startingPoint)
-			std::cout << i << ": " << (distances[i] == maxValue ? "infinity" : std::to_string(distances[i])) << "\n";
+			std::cout << i << ": " << (distances[i] == infinity ? "infinity" : std::to_string(distances[i])) << "\n";
 	}
 }
 
 void printPaths(Graph* graph, int* previous, int startingPoint, int* distances)
 {
 	std::cout << "paths\n";
-	for (int i = 0; i < graph->numberOfVertices; ++i)
+	for (int i = 0; i < graph->getNumberOfVertices(); ++i)
 	{
 		if (i != startingPoint)
 		{
-			if (distances[i] < maxValue)
+			if (distances[i] < infinity)
 			{
 				LinkedList<int> list;
 				int currentVertex = i;
@@ -121,7 +125,7 @@ bool negativeCycleExists(Graph* graph, int* distances)
 		int u = (edge->fromVertex)->index;
 		int v = (edge->toVertex)->index;
 		int weight = edge->weight;
-		if (distances[u] != maxValue && distances[v] > distances[u] + weight)
+		if (distances[u] != infinity && distances[v] > distances[u] + weight)
 			return true;
 	}
 	return false;

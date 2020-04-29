@@ -1,11 +1,7 @@
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <algorithm>
 #include <chrono>
 #include <ctime>
-#include <ratio>
-#include <random>
 #include "Node.h"
 #include "LinkedList.h"
 #include "AdjacencyMatrixGraph.h"
@@ -14,22 +10,22 @@
 
 void BellmanFordAlgorithm(Graph* graph, int startingPoint)
 {
-	int* distances = new int[graph->numberOfVertices];
-	int* previous = new int[graph->numberOfVertices];
-	for (int i = 0; i < graph->numberOfVertices; ++i)
+	int* distances = new int[graph->getNumberOfVertices()];
+	int* previous = new int[graph->getNumberOfVertices()];
+	for (int i = 0; i < graph->getNumberOfVertices(); ++i)
 	{
-		distances[i] = maxValue;
+		distances[i] = infinity;
 		previous[i] = NULL;
 	}
 	distances[startingPoint] = 0;
-	for (int i = 1; i < graph->numberOfVertices; ++i)
+	for (int i = 1; i < graph->getNumberOfVertices(); ++i)
 	{
 		for (Edge* edge : graph->edges())
 		{
 			int u = (edge->fromVertex)->index;
 			int v = (edge->toVertex)->index;
 			int weight = edge->weight;
-			if (distances[u] != maxValue && distances[v] > distances[u] + weight)
+			if (distances[u] != infinity && distances[v] > distances[u] + weight)
 			{
 				distances[v] = distances[u] + weight;
 				previous[v] = u;

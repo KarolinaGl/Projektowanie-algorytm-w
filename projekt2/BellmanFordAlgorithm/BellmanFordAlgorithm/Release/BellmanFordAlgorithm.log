@@ -1,2 +1,13 @@
 ﻿  main.cpp
-D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\Utility.h(104,17): error C3861: 'countAlgorithmExecutionTimeInMiliseconds': identifier not found
+D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\Utility.h(47,20): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\BellmanFordAlgorithm\main.cpp(78): message : see reference to function template instantiation 'G *createRandomGraph<AdjancencyMatrixGraph>(int,int)' being compiled
+          with
+          [
+              G=AdjancencyMatrixGraph
+          ]
+  Generating code
+  2 of 241 functions ( 0.8%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  BellmanFordAlgorithm.vcxproj -> D:\sem4\PAMSI\projekt2\BellmanFordAlgorithm\Release\BellmanFordAlgorithm.exe

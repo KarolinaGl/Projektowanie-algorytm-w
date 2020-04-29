@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include "LinkedList.h"
 
 struct Vertex
@@ -16,21 +15,14 @@ struct Edge
 
 class Graph
 {
-public:
+protected:
 	int numberOfVertices;
 	int numberOfEdges;
 	LinkedList<Edge*> edgesList;
 	Vertex** verticesArray;
 
-	Graph(int verticesNumber, int edgesNumber) :
-		numberOfVertices(verticesNumber),
-		numberOfEdges(edgesNumber),
-		edgesList(LinkedList<Edge*>())
-	{
-		verticesArray = new Vertex* [numberOfVertices];
-		for (int i = 0; i < numberOfVertices; ++i)
-			verticesArray[i] = nullptr;
-	}
+public:
+	Graph(int verticesNumber, int edgesNumber);
 
 	virtual ~Graph() 
 	{
@@ -38,35 +30,55 @@ public:
 		removeEdges();
 	}
 
-	void createVertex(int vertexIndex) 
-	{
-		Vertex* vertex = new Vertex();
-		vertex->index = vertexIndex;
-		verticesArray[vertexIndex] = vertex;
-	}
+	void createVertex(int vertexIndex);
 
 	virtual void createEdge(int from, int to, int weight) {}
 
-	void removeVertices() 
-	{
-		for (int i = 0; i < numberOfVertices; ++i)
-		{
-			if (verticesArray[i] != nullptr)
-				delete verticesArray[i];
-		}
-		delete[] verticesArray;
-	}
+	void removeVertices();
 
-	void removeEdges() 
-	{
-		while (!edgesList.empty())
-		{
-			delete edgesList.front();
-			edgesList.removeFront();
-		}
-	}
+	void removeEdges();
+
+	int getNumberOfVertices() { return numberOfVertices; }
+
+	int getNumberOfEdges() { return numberOfEdges; }
 
 	virtual const LinkedList<Edge*>& incidentEdges(Vertex* vertex) { throw "NotImplemented"; }
 
 	const LinkedList<Edge*>& edges() { return edgesList; }
 };
+
+Graph::Graph(int verticesNumber, int edgesNumber) :
+numberOfVertices(verticesNumber),
+numberOfEdges(edgesNumber),
+edgesList(LinkedList<Edge*>())
+{
+	verticesArray = new Vertex * [numberOfVertices];
+	for (int i = 0; i < numberOfVertices; ++i)
+		verticesArray[i] = nullptr;
+}
+
+void Graph::createVertex(int vertexIndex)
+{
+	Vertex* vertex = new Vertex();
+	vertex->index = vertexIndex;
+	verticesArray[vertexIndex] = vertex;
+}
+
+void Graph::removeVertices()
+{
+	for (int i = 0; i < numberOfVertices; ++i)
+	{
+		if (verticesArray[i] != nullptr)
+			delete verticesArray[i];
+	}
+	delete[] verticesArray;
+}
+
+void Graph::removeEdges()
+{
+	while (!edgesList.empty())
+	{
+		delete edgesList.front();
+		edgesList.removeFront();
+	}
+}

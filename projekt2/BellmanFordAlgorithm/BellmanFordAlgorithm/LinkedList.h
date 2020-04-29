@@ -1,15 +1,14 @@
 #pragma once
-#include <iostream>
 #include "Node.h"
 
 template <typename T>
 class LinkedList
 {
-private:
 	Node<T>* head;
 
 public:
 	LinkedList() : head(nullptr) {}
+
 	~LinkedList() 
 	{ 
 		while(head != nullptr)
