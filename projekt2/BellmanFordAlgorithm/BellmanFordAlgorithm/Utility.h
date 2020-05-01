@@ -3,6 +3,8 @@
 #include <string>
 #include <algorithm>
 #include <ratio>
+#include <iostream>
+#include <fstream>
 
 int infinity = 1 << 20;
 
@@ -12,25 +14,33 @@ struct RandomEdge
 	int toIndex;
 };
 
-int uploadDataFromFile(Graph* graph)
+struct FileData
 {
-	std::ifstream myFile("data.txt");
+	int startingPoint;
+	Graph* graph;
+};
+template <typename G>
+FileData uploadGraphFromFile(std::string fileName)
+{
+	std::ifstream myFile(fileName);
 	int edges = 0;
 	int vertices = 0;
 	int startingPoint = 0;
+	Graph* matrixGraph = nullptr;
 	if (myFile.is_open())
 	{
 		myFile >> edges >> vertices >> startingPoint;
+		matrixGraph = new G(vertices, edges);
 		for (int i = 0; i < vertices; ++i)
-			graph->createVertex(i);
+			matrixGraph->createVertex(i);
 		int fromIndex, toIndex, weight;
-		for (int i = 0; i < graph->getNumberOfEdges(); ++i)
+		for (int i = 0; i < matrixGraph->getNumberOfEdges(); ++i)
 		{
 			myFile >> fromIndex >> toIndex >> weight;
-			graph->createEdge(fromIndex, toIndex, weight);
+			matrixGraph->createEdge(fromIndex, toIndex, weight);
 		}
 	}
-	return startingPoint;
+	return {startingPoint, matrixGraph};
 }
 
 void swapValues(RandomEdge array[], int firstIndex, int secondIndex)
@@ -44,7 +54,7 @@ template <typename G>
 G* createRandomGraph(int numberOfVertices, int percent)
 {
 	int numberOfAllPossibleEdges = numberOfVertices * numberOfVertices - numberOfVertices;
-	int numberOfEdges = percent / 100.0 * numberOfAllPossibleEdges;
+	int numberOfEdges = (int)(percent / 100.0 * numberOfAllPossibleEdges);
 	int lowerBound = 0;
 	int upperBound = 100;
 	int weightRange = upperBound - lowerBound;
@@ -82,19 +92,19 @@ G* createRandomGraph(int numberOfVertices, int percent)
 	return graph;
 }
 
-void printDistances(Graph* graph, int* distances, int startingPoint)
+void printDistances(std::ostream& stream, Graph* graph, int* distances, int startingPoint)
 {
-	std::cout << "distances\n";
+	stream << "distances\n";
 	for (int i = 0; i < graph->getNumberOfVertices(); ++i)
 	{
 		if (i != startingPoint)
-			std::cout << i << ": " << (distances[i] == infinity ? "infinity" : std::to_string(distances[i])) << "\n";
+			stream << i << ": " << (distances[i] == infinity ? "infinity" : std::to_string(distances[i])) << "\n";
 	}
 }
 
-void printPaths(Graph* graph, int* previous, int startingPoint, int* distances)
+void printPaths(std::ostream& stream, Graph* graph, int* previous, int startingPoint, int* distances)
 {
-	std::cout << "paths\n";
+	stream << "paths\n";
 	for (int i = 0; i < graph->getNumberOfVertices(); ++i)
 	{
 		if (i != startingPoint)
@@ -109,10 +119,10 @@ void printPaths(Graph* graph, int* previous, int startingPoint, int* distances)
 					currentVertex = previous[currentVertex];
 					list.addFront(currentVertex);
 				}
-				std::cout << i << ": ";
+				stream << i << ": ";
 				for (int vertex : list)
-					std::cout << vertex << " ";
-				std::cout << "\n";
+					stream << vertex << " ";
+				stream << "\n";
 			}
 		}
 	}

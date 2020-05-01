@@ -8,17 +8,15 @@
 #include "AdjacencyListGraph.h"
 #include "Utility.h"
 
-void BellmanFordAlgorithm(Graph* graph, int startingPoint)
+void BellmanFordAlgorithm(Graph* graph, int startingPoint, std::ostream& stream = std::cout)
 {
-	int* distances = new int[graph->getNumberOfVertices()];
-	int* previous = new int[graph->getNumberOfVertices()];
-	for (int i = 0; i < graph->getNumberOfVertices(); ++i)
-	{
+	int vertices = graph->getNumberOfVertices();
+	int* distances = new int[vertices];
+	int* previous = new int[vertices];
+	for (int i = 0; i < vertices; ++i)
 		distances[i] = infinity;
-		previous[i] = NULL;
-	}
 	distances[startingPoint] = 0;
-	for (int i = 1; i < graph->getNumberOfVertices(); ++i)
+	for (int i = 1; i < vertices; ++i)
 	{
 		for (Edge* edge : graph->edges())
 		{
@@ -33,14 +31,12 @@ void BellmanFordAlgorithm(Graph* graph, int startingPoint)
 		}
 	}
 	if (negativeCycleExists(graph, distances))
-		std::cout << "Negative cycle detected!\n";
-	/*
+		stream << "Negative cycle detected!\n";
 	else
 	{
-		printDistances(graph, distances, startingPoint);
-		printPaths(graph, previous, startingPoint, distances);
+		printDistances(stream, graph, distances, startingPoint);
+		printPaths(stream, graph, previous, startingPoint, distances);
 	}
-	*/
 	delete[] distances;
 	delete[] previous;
 }
@@ -91,6 +87,10 @@ void testBellmanFordAlgorithmSpeed()
 
 int main()
 {
-	testBellmanFordAlgorithmSpeed();
+	std::ofstream stream;
+	stream.open("results.txt");
+	FileData data = uploadGraphFromFile<AdjancencyMatrixGraph>("data.txt");
+	BellmanFordAlgorithm(data.graph, data.startingPoint, stream);
+	stream.close();
 	return 0;
 }
