@@ -92,5 +92,6 @@ int main()
 	FileData data = uploadGraphFromFile<AdjancencyMatrixGraph>("data.txt");
 	BellmanFordAlgorithm(data.graph, data.startingPoint, stream);
 	stream.close();
+	delete data.graph;
 	return 0;
 }

@@ -15,10 +15,10 @@ public:
 AdjancencyMatrixGraph::AdjancencyMatrixGraph(int verticesNumber, int edgesNumber) :
 Graph(verticesNumber, edgesNumber)
 {
-	matrix = new Edge * *[numberOfVertices];
+	matrix = new Edge**[numberOfVertices];
 	for (int i = 0; i < numberOfVertices; ++i)
 	{
-		matrix[i] = new Edge * [numberOfVertices];
+		matrix[i] = new Edge*[numberOfVertices];
 		for (int j = 0; j < numberOfVertices; ++j)
 			matrix[i][j] = nullptr;
 	}
