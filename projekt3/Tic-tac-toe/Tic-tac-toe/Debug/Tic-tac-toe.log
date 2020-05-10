@@ -1,2 +1,12 @@
 ﻿  main.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(190,107): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(193,107): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+          with
+          [
+              T=float
+          ]
   Tic-tac-toe.vcxproj -> D:\sem4\PAMSI\projekt3\Tic-tac-toe\Debug\Tic-tac-toe.exe

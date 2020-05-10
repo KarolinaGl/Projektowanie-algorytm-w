@@ -3,11 +3,78 @@
 #include <iostream>
 #include "Board.h"
 
+bool isWon(Board* currentBoard, char mark)
+{
+    int sameMarksCounter = 0;
+    int smallerRange = currentBoard->boardSize - currentBoard->winningLineLength + 1;
+    for (int i = 0; i < smallerRange; ++i)
+    {
+        for (int j = 0; j < currentBoard->boardSize; ++j)
+        {
+            for (int k = 0; k < currentBoard->winningLineLength; ++k)
+            {
+                if (currentBoard->board[i + k][j] == mark)
+                    sameMarksCounter++;
+            }
+            if (sameMarksCounter == currentBoard->winningLineLength)
+                return true;
+            sameMarksCounter = 0;
+        }
+    }
+    
+    for (int i = 0; i < currentBoard->boardSize; ++i)
+    {
+        for (int j = 0; j < smallerRange; ++j)
+        {
+            for (int k = 0; k < currentBoard->winningLineLength; ++k)
+            {
+                if (currentBoard->board[i][j + k] == mark)
+                    sameMarksCounter++;
+            }
+            if (sameMarksCounter == currentBoard->winningLineLength)
+                return true;
+            sameMarksCounter = 0;
+        }
+    }
+    
+    for (int i = 0; i < smallerRange; ++i)
+    {
+        for (int j = 0; j < smallerRange; ++j)
+        {
+            for (int k = 0; k < currentBoard->winningLineLength; ++k)
+            {
+                if (currentBoard->board[i + k][j + k] == mark)
+                    sameMarksCounter++;
+            }
+            if (sameMarksCounter == currentBoard->winningLineLength)
+                return true;
+            sameMarksCounter = 0;
+        }
+    }
+
+    for (int i = 0; i < smallerRange; ++i)
+    {
+        for (int j = currentBoard->winningLineLength - 1; j < currentBoard->boardSize; ++j)
+        {
+            for (int k = 0; k < currentBoard->winningLineLength; ++k)
+            {
+                if (currentBoard->board[i + k][j - k] == mark)
+                    sameMarksCounter++;
+            }
+            if (sameMarksCounter == currentBoard->winningLineLength)
+                return true;
+            sameMarksCounter = 0;
+        }
+    }
+    return false;
+}
+
+
 int main()
 {
-    int boardSize = 5;
-    Board myBoard;
-    myBoard.print();
+    Board* myBoard = new Board(5, 3);
+    int boardSize = myBoard->boardSize;
+    
     unsigned int windowXSize = 500;
     unsigned int windowYSize = 500;
     float boardXSize = 400;
@@ -57,26 +124,41 @@ int main()
                     if (event.mouseButton.x > boardXOffset && event.mouseButton.x < windowXSize - boardXOffset
                         && event.mouseButton.y > boardYOffset && event.mouseButton.y < windowYSize - boardYOffset)
                     {
-                        int x, y;
+                        int row = 0;
+                        int column = 0;
                         for (int i = 0; i < boardSize; ++i)
                         {
                             sf::Vector2f verticalLinePosition = verticalGridLines[i].getPosition();
                             if (event.mouseButton.x > verticalLinePosition.x && event.mouseButton.x < verticalLinePosition.x + boardXSize / boardSize)
-                                x = i;
+                                column = i;
                         }
                         for (int i = 0; i < boardSize; ++i)
                         {
                             sf::Vector2f horizontalLinePosition = horizontalGridLines[i].getPosition();
                             if (event.mouseButton.y > horizontalLinePosition.y && event.mouseButton.y < horizontalLinePosition.y + boardYSize / boardSize)
-                                y = i;
+                                row = i;
                         }
-                        if (myBoard.board[y][x] == ' ')
+                        if (myBoard->board[row][column] == ' ')
                         {
                             clickCounter++;
                             if (clickCounter % 2 == 0)
-                                myBoard.board[y][x] = 'O';
+                            {
+                                myBoard->board[row][column] = 'O';
+                                if (isWon(myBoard, 'O'))
+                                {
+                                    std::cout << "O won\n";
+                                    return 0;
+                                }
+                            }
                             else
-                                myBoard.board[y][x] = 'X';
+                            {
+                                myBoard->board[row][column] = 'X';
+                                if (isWon(myBoard, 'X'))
+                                {
+                                    std::cout << "X won\n";
+                                    return 0;
+                                }
+                            }
                         }
                     }
                 }
@@ -94,7 +176,7 @@ int main()
         {
             for (int j = 0; j < boardSize; ++j)
             {
-                if (myBoard.board[i][j] == 'X')
+                if (myBoard->board[i][j] == 'X')
                 {
                     sf::RectangleShape crossMark1(sf::Vector2f((boardXSize / boardSize - 2 * markXOffset) * sqrt(2), 5));
                     crossMark1.setPosition(boardXOffset + j * boardXSize / boardSize + markXOffset, boardYOffset + i * boardYSize / boardSize + markYOffset);
@@ -105,7 +187,7 @@ int main()
                     window.draw(crossMark1);
                     window.draw(crossMark2);
                 }
-                if (myBoard.board[i][j] == 'O')
+                if (myBoard->board[i][j] == 'O')
                 {
                     sf::CircleShape circleMark(boardXSize / (2 * boardSize) - markXOffset, 50);
                     circleMark.setPosition(boardXOffset + j * boardXSize / boardSize + markXOffset, boardYOffset + i * boardYSize / boardSize + markXOffset);
@@ -118,5 +200,6 @@ int main()
         window.display();
     }
     clickCounter = 0;
+    
     return 0;
 }

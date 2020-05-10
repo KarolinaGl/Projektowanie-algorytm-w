@@ -5,8 +5,10 @@ class Board
 {
 public:
     std::vector<std::vector<char>> board;
+    int boardSize;
+    int winningLineLength;
 
-    Board()
+    Board(int size, int length)
     {
         board = {
             {' ', ' ', ' ', ' ', ' '},
@@ -15,6 +17,8 @@ public:
             {' ', ' ', ' ', ' ', ' '},
             {' ', ' ', ' ', ' ', ' '}
         };
+        winningLineLength = length;
+        boardSize = size;
     }
 
     void print()
