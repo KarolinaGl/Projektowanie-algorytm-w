@@ -2,112 +2,59 @@
 #include <vector>
 #include <iostream>
 #include "Board.h"
-
-bool isWon(Board* currentBoard, char mark)
-{
-    int sameMarksCounter = 0;
-    int smallerRange = currentBoard->boardSize - currentBoard->winningLineLength + 1;
-    for (int i = 0; i < smallerRange; ++i)
-    {
-        for (int j = 0; j < currentBoard->boardSize; ++j)
-        {
-            for (int k = 0; k < currentBoard->winningLineLength; ++k)
-            {
-                if (currentBoard->board[i + k][j] == mark)
-                    sameMarksCounter++;
-            }
-            if (sameMarksCounter == currentBoard->winningLineLength)
-                return true;
-            sameMarksCounter = 0;
-        }
-    }
-    
-    for (int i = 0; i < currentBoard->boardSize; ++i)
-    {
-        for (int j = 0; j < smallerRange; ++j)
-        {
-            for (int k = 0; k < currentBoard->winningLineLength; ++k)
-            {
-                if (currentBoard->board[i][j + k] == mark)
-                    sameMarksCounter++;
-            }
-            if (sameMarksCounter == currentBoard->winningLineLength)
-                return true;
-            sameMarksCounter = 0;
-        }
-    }
-    
-    for (int i = 0; i < smallerRange; ++i)
-    {
-        for (int j = 0; j < smallerRange; ++j)
-        {
-            for (int k = 0; k < currentBoard->winningLineLength; ++k)
-            {
-                if (currentBoard->board[i + k][j + k] == mark)
-                    sameMarksCounter++;
-            }
-            if (sameMarksCounter == currentBoard->winningLineLength)
-                return true;
-            sameMarksCounter = 0;
-        }
-    }
-
-    for (int i = 0; i < smallerRange; ++i)
-    {
-        for (int j = currentBoard->winningLineLength - 1; j < currentBoard->boardSize; ++j)
-        {
-            for (int k = 0; k < currentBoard->winningLineLength; ++k)
-            {
-                if (currentBoard->board[i + k][j - k] == mark)
-                    sameMarksCounter++;
-            }
-            if (sameMarksCounter == currentBoard->winningLineLength)
-                return true;
-            sameMarksCounter = 0;
-        }
-    }
-    return false;
-}
-
+#include "Window.h"
+#include "Button.h"
 
 int main()
 {
-    Board* myBoard = new Board(5, 3);
-    int boardSize = myBoard->boardSize;
+    bool openSecondWindow = false;
+    Board myBoard(5, 3);
+    int boardSize = myBoard.boardSize;
     
-    unsigned int windowXSize = 500;
-    unsigned int windowYSize = 500;
-    float boardXSize = 400;
-    float boardYSize = 400;
+    unsigned int windowXSize = 600;
+    unsigned int windowYSize = 600;
+    float boardSizeInPixels = 400;
     float boardXOffset = 50;
     float boardYOffset = 50;
-    float markXOffset = 15;
-    float markYOffset = 15;
+    float markOffset = 15;
 
     sf::RenderWindow window(sf::VideoMode(windowXSize, windowYSize), "Tic-tac-toe");
-    sf::RectangleShape boardRectangle(sf::Vector2f(boardXSize, boardYSize));
+    sf::RectangleShape boardRectangle(sf::Vector2f(boardSizeInPixels, boardSizeInPixels));
     boardRectangle.setPosition(boardXOffset, boardYOffset);
     boardRectangle.setFillColor(sf::Color::Transparent);
     boardRectangle.setOutlineThickness(5);
-    std::vector<sf::RectangleShape> gridLines;
-    std::vector<sf::RectangleShape> verticalGridLines;
-    std::vector<sf::RectangleShape> horizontalGridLines;
+    std::vector<sf::RectangleShape> gridlines;
+    std::vector<sf::RectangleShape> verticalGridlines;
+    std::vector<sf::RectangleShape> horizontalGridlines;
 
-    for (int i = 0; i <= boardSize; ++i)
-    {
-        sf::RectangleShape verticalLine(sf::Vector2f(boardYSize, 1));
-        verticalLine.rotate(90);
-        verticalLine.setPosition(i * boardXSize / boardSize + boardXOffset, boardYOffset);
-        gridLines.push_back(verticalLine);
-        verticalGridLines.push_back(verticalLine);
-    }    
-    for (int i = 0; i <= boardSize; ++i)
-    {
-        sf::RectangleShape horizontalLine(sf::Vector2f(boardXSize, 1));
-        horizontalLine.setPosition(boardXOffset, i * boardYSize / boardSize + boardYOffset);
-        gridLines.push_back(horizontalLine);
-        horizontalGridLines.push_back(horizontalLine);
-    }
+    Button mybutton(50, 50, 10, 10);
+
+    float textXOffset = 10;
+    float textYOffset = 10;
+    unsigned int textSize = 50;
+
+    sf::Font font;
+    if (!font.loadFromFile("arial.ttf"))
+        return EXIT_FAILURE;
+
+    sf::Text chooseBoardSize;
+    chooseBoardSize.setFont(font);
+    chooseBoardSize.setString("Board size:");
+    chooseBoardSize.setCharacterSize(textSize);
+    chooseBoardSize.setFillColor(sf::Color::Red);
+    chooseBoardSize.setStyle(sf::Text::Bold);
+    chooseBoardSize.setPosition(textXOffset, textYOffset);
+
+    sf::Text chooseWinningLineLength;
+    chooseWinningLineLength.setFont(font);
+    chooseWinningLineLength.setString("Winning line length:");
+    chooseWinningLineLength.setCharacterSize(textSize);
+    chooseWinningLineLength.setFillColor(sf::Color::Red);
+    chooseWinningLineLength.setStyle(sf::Text::Bold);
+    chooseWinningLineLength.setPosition(textXOffset, 100 + textYOffset);
+
+    initializeGridlines("vertical", gridlines, verticalGridlines, boardSize, boardSizeInPixels, boardXOffset, boardYOffset);
+    initializeGridlines("horizontal", gridlines, horizontalGridlines, boardSize, boardSizeInPixels, boardXOffset, boardYOffset);
 
     int clickCounter = 0;
     while (window.isOpen())
@@ -121,45 +68,12 @@ int main()
             {
                 if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    if (event.mouseButton.x > boardXOffset && event.mouseButton.x < windowXSize - boardXOffset
-                        && event.mouseButton.y > boardYOffset && event.mouseButton.y < windowYSize - boardYOffset)
+                    openSecondWindow = true;
+                    if (openSecondWindow)
                     {
-                        int row = 0;
-                        int column = 0;
-                        for (int i = 0; i < boardSize; ++i)
-                        {
-                            sf::Vector2f verticalLinePosition = verticalGridLines[i].getPosition();
-                            if (event.mouseButton.x > verticalLinePosition.x && event.mouseButton.x < verticalLinePosition.x + boardXSize / boardSize)
-                                column = i;
-                        }
-                        for (int i = 0; i < boardSize; ++i)
-                        {
-                            sf::Vector2f horizontalLinePosition = horizontalGridLines[i].getPosition();
-                            if (event.mouseButton.y > horizontalLinePosition.y && event.mouseButton.y < horizontalLinePosition.y + boardYSize / boardSize)
-                                row = i;
-                        }
-                        if (myBoard->board[row][column] == ' ')
-                        {
-                            clickCounter++;
-                            if (clickCounter % 2 == 0)
-                            {
-                                myBoard->board[row][column] = 'O';
-                                if (isWon(myBoard, 'O'))
-                                {
-                                    std::cout << "O won\n";
-                                    return 0;
-                                }
-                            }
-                            else
-                            {
-                                myBoard->board[row][column] = 'X';
-                                if (isWon(myBoard, 'X'))
-                                {
-                                    std::cout << "X won\n";
-                                    return 0;
-                                }
-                            }
-                        }
+                        if (event.mouseButton.x > boardXOffset && event.mouseButton.x < boardSizeInPixels + boardXOffset
+                            && event.mouseButton.y > boardYOffset && event.mouseButton.y < boardSizeInPixels + boardYOffset)
+                            handleClick(myBoard, event, clickCounter, verticalGridlines, horizontalGridlines, boardSizeInPixels);
                     }
                 }
             }
@@ -167,33 +81,28 @@ int main()
 
         window.clear();
 
-        window.draw(boardRectangle);
-
-        for (unsigned int i = 0; i < gridLines.size(); ++i)
-            window.draw(gridLines[i]);
-
-        for (int i = 0; i < boardSize; ++i)
+        if (!openSecondWindow)
         {
-            for (int j = 0; j < boardSize; ++j)
+            window.draw(chooseBoardSize);
+            window.draw(chooseWinningLineLength);
+            mybutton.drawTo(window);
+        }
+
+        if (openSecondWindow)
+        {
+            window.draw(boardRectangle);
+
+            for (unsigned int i = 0; i < gridlines.size(); ++i)
+                window.draw(gridlines[i]);
+
+            for (int i = 0; i < boardSize; ++i)
             {
-                if (myBoard->board[i][j] == 'X')
+                for (int j = 0; j < boardSize; ++j)
                 {
-                    sf::RectangleShape crossMark1(sf::Vector2f((boardXSize / boardSize - 2 * markXOffset) * sqrt(2), 5));
-                    crossMark1.setPosition(boardXOffset + j * boardXSize / boardSize + markXOffset, boardYOffset + i * boardYSize / boardSize + markYOffset);
-                    crossMark1.rotate(45);
-                    sf::RectangleShape crossMark2(sf::Vector2f((boardXSize / boardSize - 2 * markXOffset) * sqrt(2), 5));
-                    crossMark2.setPosition(boardXOffset + (j + 1) * boardXSize / boardSize - markXOffset, boardYOffset + i * boardYSize / boardSize + markXOffset);
-                    crossMark2.rotate(135);
-                    window.draw(crossMark1);
-                    window.draw(crossMark2);
-                }
-                if (myBoard->board[i][j] == 'O')
-                {
-                    sf::CircleShape circleMark(boardXSize / (2 * boardSize) - markXOffset, 50);
-                    circleMark.setPosition(boardXOffset + j * boardXSize / boardSize + markXOffset, boardYOffset + i * boardYSize / boardSize + markXOffset);
-                    circleMark.setFillColor(sf::Color::Transparent);
-                    circleMark.setOutlineThickness(5);
-                    window.draw(circleMark);
+                    if (myBoard.board[i][j] == 'X')
+                        drawMark(window, boardSize, boardSizeInPixels, boardXOffset, boardYOffset, markOffset, i, j, 'X');
+                    if (myBoard.board[i][j] == 'O')
+                        drawMark(window, boardSize, boardSizeInPixels, boardXOffset, boardYOffset, markOffset, i, j, 'O');
                 }
             }
         }

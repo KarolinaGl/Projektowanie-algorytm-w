@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <iostream>
 
 class Board
 {
@@ -30,3 +31,5 @@ public:
         }
     }
 };
+
+bool isWon(Board& currentBoard, char mark);
