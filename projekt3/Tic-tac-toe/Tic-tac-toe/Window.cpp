@@ -1,23 +1,23 @@
 #include "Window.h"
 
-void initializeGridlines(std::string direction, std::vector<sf::RectangleShape>& gridlines, std::vector<sf::RectangleShape>& directionalGridlines, int boardSize, float boardSizeInPixels, float boardXOffset, float boardYOffset)
+void initializeGridlines(Board myBoard, std::string direction, std::vector<sf::RectangleShape>& gridlines, std::vector<sf::RectangleShape>& directionalGridlines, float boardSizeInPixels, float boardXOffset, float boardYOffset)
 {
     if (direction == "vertical")
     {
-        for (int i = 0; i <= boardSize; ++i)
+        for (int i = 0; i <= myBoard.boardSize; ++i)
         {
             sf::RectangleShape verticalLine(sf::Vector2f(boardSizeInPixels, 1));
             verticalLine.rotate(90);
-            verticalLine.setPosition(i * boardSizeInPixels / boardSize + boardXOffset, boardYOffset);
+            verticalLine.setPosition(i * boardSizeInPixels / myBoard.boardSize + boardXOffset, boardYOffset);
             gridlines.push_back(verticalLine);
             directionalGridlines.push_back(verticalLine);
         }
     }
     else {
-        for (int i = 0; i <= boardSize; ++i)
+        for (int i = 0; i <= myBoard.boardSize; ++i)
         {
             sf::RectangleShape horizontalLine(sf::Vector2f(boardSizeInPixels, 1));
-            horizontalLine.setPosition(boardXOffset, i * boardSizeInPixels / boardSize + boardYOffset);
+            horizontalLine.setPosition(boardXOffset, i * boardSizeInPixels / myBoard.boardSize + boardYOffset);
             gridlines.push_back(horizontalLine);
             directionalGridlines.push_back(horizontalLine);
         }
@@ -32,8 +32,11 @@ void handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector
     { 
         sf::Vector2f verticalLinePosition = verticalGridlines[i].getPosition();
         if (event.mouseButton.x > verticalLinePosition.x && event.mouseButton.x < verticalLinePosition.x + boardSizeInPixels / myBoard.boardSize)
+        {
             column = i;
-    }
+            std::cout << "column= " << column;
+        }
+        }
     for (int i = 0; i < myBoard.boardSize; ++i)
     {
         sf::Vector2f horizontalLinePosition = horizontalGridlines[i].getPosition();
@@ -79,4 +82,9 @@ void drawMark(sf::RenderWindow& window, int boardSize, float boardSizeInPixels, 
         circleMark.setOutlineThickness(5);
         window.draw(circleMark);
     }
+}
+
+void initializeText()
+{
+    
 }

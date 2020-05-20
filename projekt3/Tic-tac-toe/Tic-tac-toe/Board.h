@@ -9,6 +9,13 @@ public:
     int boardSize;
     int winningLineLength;
 
+    Board(Board& b)
+    {
+        board = b.board;
+        boardSize = b.boardSize;
+        winningLineLength = b.winningLineLength;
+    }
+
     Board(int size, int length)
     {
         board = {

@@ -1,17 +1,53 @@
 ﻿  main.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.h(19,54): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.h(47,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=float
+              T=int
           ]
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.h(19,47): warning C4244: 'argument': conversion from 'int' to 'T', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.h(48,16): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=float
+              T=int
           ]
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(58,95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(60,51): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(60,33): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(61,61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(61,56): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(62,75): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(62,58): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(72,91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(74,50): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(74,32): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(75,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(75,63): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(76,81): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(76,61): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(86,111): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(88,59): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(88,41): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(89,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(89,64): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(90,83): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(90,66): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(100,99): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(102,58): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(102,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(103,91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(103,71): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(104,89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(104,69): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(108,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(109,77): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(109,52): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(110,92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(110,74): warning C4244: 'argument': conversion from 'unsigned int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(134,115): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(141,111): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(150,131): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(159,131): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   Generating code
-  0 of 331 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    0 functions had inline decision re-evaluated but remain unchanged
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 363 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
   Tic-tac-toe.vcxproj -> D:\sem4\PAMSI\projekt3\Tic-tac-toe\Release\Tic-tac-toe.exe
