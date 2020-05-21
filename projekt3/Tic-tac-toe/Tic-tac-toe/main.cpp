@@ -2,17 +2,22 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "Board.h"
 #include "Window.h"
 #include "Button.h"
 
-
 int main()
 {
+    Window window;
+
+    window.run();
+
+    /*
     int boardSizeNumber = 7;
     int winningLineLengthNumber = 3;
     bool openSecondWindow = false;
-    Board myBoard(4, 3);
+    Board myBoard(5, 3);
     int boardSize = myBoard.boardSize;
     
     unsigned int windowXSize = 600;
@@ -60,7 +65,6 @@ int main()
     boardSizeMinusButton.setButtonPosition(windowXSize / 3, line2Height);
     boardSizeMinusButton.setTextPosition(windowXSize / 3 + 8, line2Height - 8);
     boardSizeMinusButton.setCharacterSize(70);
-    boardSizeMinusButton.setTextColor(sf::Color::Black);
 
     sf::Text boardSizeText;
     boardSizeText.setFont(font);
@@ -74,7 +78,6 @@ int main()
     boardSizePlusButton.setButtonPosition(windowXSize * 2 / 3 - squareButtonSize, line2Height);
     boardSizePlusButton.setTextPosition(windowXSize * 2 / 3 - squareButtonSize, line2Height);
     boardSizePlusButton.setCharacterSize(70);
-    boardSizePlusButton.setTextColor(sf::Color::Black);
 
     sf::Text chooseWinningLineLength;
     chooseWinningLineLength.setFont(font);
@@ -88,7 +91,6 @@ int main()
     winningLineLengthMinusButton.setButtonPosition(windowXSize / 3, line4Height);
     winningLineLengthMinusButton.setTextPosition(windowXSize / 3 + 8, line4Height - 8);
     winningLineLengthMinusButton.setCharacterSize(70);
-    winningLineLengthMinusButton.setTextColor(sf::Color::Black);
 
     sf::Text winningLineLengthText;
     winningLineLengthText.setFont(font);
@@ -102,15 +104,21 @@ int main()
     winningLineLengthPlusButton.setButtonPosition(windowXSize * 2 / 3 - squareButtonSize, line4Height);
     winningLineLengthPlusButton.setTextPosition(windowXSize * 2 / 3 - squareButtonSize, line4Height);
     winningLineLengthPlusButton.setCharacterSize(70);
-    winningLineLengthPlusButton.setTextColor(sf::Color::Black);
 
     Button submitButton(submitButtonWidth, 100, "Submit");
     submitButton.setButtonPosition(windowXSize / 2 - submitButtonWidth / 2, line5Height);
     submitButton.setTextPosition(windowXSize / 2 - submitButtonWidth / 2 + 30, line5Height + 40);
     submitButton.setCharacterSize(textSize);
-    submitButton.setTextColor(sf::Color::Black);
 
+    sf::Text XWon;
+    XWon.setFont(font);
+    XWon.setString("X won");
+    XWon.setCharacterSize(textSize);
+    XWon.setFillColor(sf::Color::White);
+    XWon.setStyle(sf::Text::Bold);
+    XWon.setPosition(windowXSize / 2 - boardSizeText.getLocalBounds().width / 2, line4Height);
 
+    char won;
     int clickCounter = 0;
     while (window.isOpen())
     {
@@ -131,6 +139,9 @@ int main()
                             boardSizeNumber--;
                             boardSizeText.setString(std::to_string(boardSizeNumber));
                             boardSizeText.setPosition(windowXSize / 2 - boardSizeText.getLocalBounds().width / 2, line2Height);
+                            winningLineLengthNumber = std::min(winningLineLengthNumber, boardSizeNumber);
+                            winningLineLengthText.setString(std::to_string(winningLineLengthNumber));
+                            winningLineLengthText.setPosition(windowXSize / 2 - winningLineLengthText.getLocalBounds().width / 2, line4Height);
                         }
                     }
                     if (boardSizePlusButton.isMouseOver(window))
@@ -165,7 +176,7 @@ int main()
                     {
                         if (event.mouseButton.x > boardXOffset && event.mouseButton.x < boardSizeInPixels + boardXOffset
                             && event.mouseButton.y > boardYOffset && event.mouseButton.y < boardSizeInPixels + boardYOffset)
-                            handleClick(myBoard, event, clickCounter, verticalGridlines, horizontalGridlines, boardSizeInPixels);
+                            won = handleClick(myBoard, event, clickCounter, verticalGridlines, horizontalGridlines, boardSizeInPixels);
                     }
                 }
             }
@@ -175,7 +186,6 @@ int main()
 
         if (!openSecondWindow)
         {
-            
             window.draw(chooseBoardSize);
             window.draw(chooseWinningLineLength);
             boardSizePlusButton.draw(window);
@@ -185,15 +195,6 @@ int main()
             submitButton.draw(window);
             window.draw(boardSizeText);
             window.draw(winningLineLengthText);
-            
-            if (event.type == sf::Event::MouseButtonPressed)
-            {
-                if (event.mouseButton.button == sf::Mouse::Left)
-                {
-                    sf::Vector2i position = sf::Mouse::getPosition(window);
-                    std::cout << "x= " << position.x << "y= " << position.y << std::endl;
-                }
-            }
         }
 
         if (openSecondWindow)
@@ -216,7 +217,6 @@ int main()
         }
         window.display();
     }
-    clickCounter = 0;
-    
+    */
     return 0;
 }

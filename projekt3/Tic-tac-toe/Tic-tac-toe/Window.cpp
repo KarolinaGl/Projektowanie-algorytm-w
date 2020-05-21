@@ -1,30 +1,31 @@
 #include "Window.h"
 
-void initializeGridlines(Board myBoard, std::string direction, std::vector<sf::RectangleShape>& gridlines, std::vector<sf::RectangleShape>& directionalGridlines, float boardSizeInPixels, float boardXOffset, float boardYOffset)
+Window::Window()
 {
-    if (direction == "vertical")
+    window = new sf::RenderWindow(sf::VideoMode(WINDOW_X_SIZE, WINDOW_Y_SIZE), "Tic-tac-toe");
+    view = new MenuView();
+}
+
+void initializeGridlines(Board myBoard, std::string direction, std::vector<sf::RectangleShape>& gridlines,
+    std::vector<sf::RectangleShape>& directionalGridlines, float boardSizeInPixels, float boardXOffset, float boardYOffset)
+{
+    for (int i = 0; i <= myBoard.boardSize; ++i)
     {
-        for (int i = 0; i <= myBoard.boardSize; ++i)
+        sf::RectangleShape line(sf::Vector2f(boardSizeInPixels, 1));
+        if (direction == "vertical")
         {
-            sf::RectangleShape verticalLine(sf::Vector2f(boardSizeInPixels, 1));
-            verticalLine.rotate(90);
-            verticalLine.setPosition(i * boardSizeInPixels / myBoard.boardSize + boardXOffset, boardYOffset);
-            gridlines.push_back(verticalLine);
-            directionalGridlines.push_back(verticalLine);
+            line.rotate(90);
+            line.setPosition(i * boardSizeInPixels / myBoard.boardSize + boardXOffset, boardYOffset);
         }
-    }
-    else {
-        for (int i = 0; i <= myBoard.boardSize; ++i)
-        {
-            sf::RectangleShape horizontalLine(sf::Vector2f(boardSizeInPixels, 1));
-            horizontalLine.setPosition(boardXOffset, i * boardSizeInPixels / myBoard.boardSize + boardYOffset);
-            gridlines.push_back(horizontalLine);
-            directionalGridlines.push_back(horizontalLine);
-        }
+        else
+            line.setPosition(boardXOffset, i * boardSizeInPixels / myBoard.boardSize + boardYOffset);
+        gridlines.push_back(line);
+        directionalGridlines.push_back(line);
     }
 }
 
-void handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector<sf::RectangleShape>& verticalGridlines, std::vector<sf::RectangleShape>& horizontalGridlines, float boardSizeInPixels)
+char handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector<sf::RectangleShape>& verticalGridlines,
+    std::vector<sf::RectangleShape>& horizontalGridlines, float boardSizeInPixels)
 {
     int row = 0;
     int column = 0;
@@ -32,11 +33,8 @@ void handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector
     { 
         sf::Vector2f verticalLinePosition = verticalGridlines[i].getPosition();
         if (event.mouseButton.x > verticalLinePosition.x && event.mouseButton.x < verticalLinePosition.x + boardSizeInPixels / myBoard.boardSize)
-        {
             column = i;
-            std::cout << "column= " << column;
-        }
-        }
+    }
     for (int i = 0; i < myBoard.boardSize; ++i)
     {
         sf::Vector2f horizontalLinePosition = horizontalGridlines[i].getPosition();
@@ -50,18 +48,19 @@ void handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector
         {
             myBoard.board[row][column] = 'O';
             if (isWon(myBoard, 'O'))
-                std::cout << "O won\n";
+                return 'O';
         }
         else
         {
             myBoard.board[row][column] = 'X';
             if (isWon(myBoard, 'X'))
-                std::cout << "X won\n";
+                return 'X';
         }
     }
 }
 
-void drawMark(sf::RenderWindow& window, int boardSize, float boardSizeInPixels, float boardXOffset, float boardYOffset, float markOffset, int i, int j, char mark)
+void drawMark(sf::RenderWindow& window, int boardSize, float boardSizeInPixels, float boardXOffset,
+    float boardYOffset, float markOffset, int i, int j, char mark)
 {
     if (mark == 'X')
     {
@@ -82,9 +81,4 @@ void drawMark(sf::RenderWindow& window, int boardSize, float boardSizeInPixels, 
         circleMark.setOutlineThickness(5);
         window.draw(circleMark);
     }
-}
-
-void initializeText()
-{
-    
 }
