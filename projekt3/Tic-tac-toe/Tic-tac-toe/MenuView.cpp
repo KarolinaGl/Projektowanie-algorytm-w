@@ -1,17 +1,46 @@
 #include "MenuView.h"
+#include "GameView.h"
+#include "Window.h"
 
-void MenuView::handleEvent(sf::RenderWindow* window)
+MenuView::MenuView()
 {
-	if (boardSizeMinusButton.isMouseOver(*window))
+	font.loadFromFile("arial.ttf");
+	initChooseBoardSize();
+	initBoardSizeMinusButton();
+	initBoardSizeText();
+	initBoardSizePlusButton();
+	initChooseWinningLineLength();
+	initWinningLineLengthMinusButton();
+	initWinningLineLengthText();
+	initWinningLineLengthPlusButton();
+	initSubmitButton();
+}
+
+void MenuView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
+{
+	if (boardSizeMinusButton.isMouseOver(*renderWindow))
 		boardSizeMinusButtonClicked();
-	if (boardSizePlusButton.isMouseOver(*window))
+	if (boardSizePlusButton.isMouseOver(*renderWindow))
 		boardSizePlusButtonClicked();
-	if (winningLineLengthMinusButton.isMouseOver(*window))
+	if (winningLineLengthMinusButton.isMouseOver(*renderWindow))
 		winningLineLengthMinusButtonClicked();
-	if (winningLineLengthPlusButton.isMouseOver(*window))
+	if (winningLineLengthPlusButton.isMouseOver(*renderWindow))
 		winningLineLengthPlusButtonClicked();
-	if (submitButton.isMouseOver(*window))
-		submitButtonClicked();
+	if (submitButton.isMouseOver(*renderWindow))
+		submitButtonClicked(window);
+}
+
+void MenuView::draw(sf::RenderWindow* window)
+{
+	window->draw(chooseBoardSize);
+	boardSizeMinusButton.draw(*window);
+	window->draw(boardSizeText);
+	boardSizePlusButton.draw(*window);
+	window->draw(chooseWinningLineLength);
+	winningLineLengthMinusButton.draw(*window);
+	window->draw(winningLineLengthText);
+	winningLineLengthPlusButton.draw(*window);
+	submitButton.draw(*window);
 }
 
 void MenuView::initChooseBoardSize()
@@ -129,6 +158,8 @@ void MenuView::winningLineLengthPlusButtonClicked()
 	}
 }
 
-void MenuView::submitButtonClicked()
+void MenuView::submitButtonClicked(Window* window)
 {
+	GameView* gameView = new GameView(boardSizeNumber, winningLineLengthNumber);
+	window->changeView(gameView);
 }

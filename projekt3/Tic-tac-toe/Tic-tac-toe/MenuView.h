@@ -1,7 +1,5 @@
 #pragma once
-#include <SFML/Graphics.hpp> 
 #include "View.h"
-#include "Window.h"
 
 #define TEXT_SIZE 40
 #define LINE_1_HEIGHT 50
@@ -16,11 +14,11 @@
 class MenuView : public View
 {
 public:
+	sf::Font font;
 	sf::Text chooseBoardSize;
 	sf::Text chooseWinningLineLength;
 	sf::Text boardSizeText;
 	sf::Text winningLineLengthText;
-	sf::Font font;
 	Button boardSizePlusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "+");
 	Button boardSizeMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
@@ -29,34 +27,11 @@ public:
 	int boardSizeNumber = 3;
 	int winningLineLengthNumber = 3;
 
-	MenuView()
-	{
-		font.loadFromFile("arial.ttf");
-		initChooseBoardSize();
-		initBoardSizeMinusButton();
-		initBoardSizeText();
-		initBoardSizePlusButton();
-		initChooseWinningLineLength();
-		initWinningLineLengthMinusButton();
-		initWinningLineLengthText();
-		initWinningLineLengthPlusButton();
-		initSubmitButton();
-	}
+	MenuView();
 
-	void handleEvent(sf::RenderWindow* window);
+	void handleEvent(sf::RenderWindow* renderWindow, Window* window);
 
-	void draw(sf::RenderWindow* window) 
-	{
-		window->draw(chooseBoardSize);
-		boardSizeMinusButton.draw(*window);
-		window->draw(boardSizeText);
-		boardSizePlusButton.draw(*window);
-		window->draw(chooseWinningLineLength);
-		winningLineLengthMinusButton.draw(*window);
-		window->draw(winningLineLengthText);
-		winningLineLengthPlusButton.draw(*window);
-		submitButton.draw(*window);
-	}
+	void draw(sf::RenderWindow* window);
 
 	void initChooseBoardSize();
 
@@ -84,5 +59,5 @@ public:
 
 	void winningLineLengthPlusButtonClicked();
 
-	void submitButtonClicked();
+	void submitButtonClicked(Window* window);
 };

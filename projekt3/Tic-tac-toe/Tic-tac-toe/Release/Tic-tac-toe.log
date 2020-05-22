@@ -1,21 +1,14 @@
-﻿  Board.cpp
-  Button.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.cpp(5,15): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.cpp(6,15): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
-          with
-          [
-              T=int
-          ]
-  main.cpp
+﻿  GameView.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(70,27): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(112,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(115,89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   MenuView.cpp
+  ScoreView.cpp
   Window.cpp
+  main.cpp
   Generating code
-  10 of 230 functions ( 4.3%) were compiled, the rest were copied from previous compilation.
+  0 of 410 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Tic-tac-toe.vcxproj -> D:\sem4\PAMSI\projekt3\Tic-tac-toe\Release\Tic-tac-toe.exe

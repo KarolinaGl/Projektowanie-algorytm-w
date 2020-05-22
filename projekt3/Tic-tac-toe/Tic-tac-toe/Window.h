@@ -6,9 +6,9 @@
 #include "Button.h"
 #include "View.h"
 #include "MenuView.h"
+#include "GameView.h"
+#include "Constants.h"
 
-#define WINDOW_X_SIZE 600
-#define WINDOW_Y_SIZE 600
 
 class Window
 {
@@ -29,7 +29,7 @@ public:
 					window->close();
 				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
 				{
-					view->handleEvent(window);
+					view->handleEvent(window, this);
 				}
 			}
 			window->clear();
@@ -39,10 +39,14 @@ public:
 			window->display();
 		}
 	}
+
+	void changeView(View* newView)
+	{
+		delete view;
+		view = newView;
+	}
 };
 
 void initializeGridlines(Board myBoard, std::string direction, std::vector<sf::RectangleShape>& gridlines, std::vector<sf::RectangleShape>& directionalGridlines, float boardSizeInPixels, float boardXOffset, float boardYOffset);
 
 char handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector<sf::RectangleShape>& verticalGridlines, std::vector<sf::RectangleShape>& horizontalGridlines, float boardSizeInPixels);
-
-void drawMark(sf::RenderWindow& window, int boardSize, float boardSizeInPixels, float boardXOffset, float boardYOffset, float markOffset, int i, int j, char mark);

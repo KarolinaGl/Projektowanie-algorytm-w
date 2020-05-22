@@ -1,4 +1,9 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include "Button.h"
+#include "Constants.h"
+
+class Window;
 
 class View
 {
@@ -9,7 +14,7 @@ public:
 
 	}
 
-	virtual void handleEvent(sf::RenderWindow* window) {}
+	virtual void handleEvent(sf::RenderWindow* renderWindow, Window* window) {}
 
 	virtual void draw(sf::RenderWindow* window) {}
 };

@@ -9,9 +9,9 @@ public:
     int boardSize;
     int winningLineLength;
 
+    Board();
+
     Board(int size, int length);
 
     void print();
 };
-
-bool isWon(Board& currentBoard, char mark);
