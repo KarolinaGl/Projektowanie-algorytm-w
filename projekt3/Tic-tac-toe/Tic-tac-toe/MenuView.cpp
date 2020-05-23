@@ -13,7 +13,8 @@ MenuView::MenuView()
 	initWinningLineLengthMinusButton();
 	initWinningLineLengthText();
 	initWinningLineLengthPlusButton();
-	initSubmitButton();
+	initBotGameButton();
+	initPlayerGameButton();
 }
 
 void MenuView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
@@ -26,8 +27,10 @@ void MenuView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
 		winningLineLengthMinusButtonClicked();
 	if (winningLineLengthPlusButton.isMouseOver(*renderWindow))
 		winningLineLengthPlusButtonClicked();
-	if (submitButton.isMouseOver(*renderWindow))
-		submitButtonClicked(window);
+	if (botGameButton.isMouseOver(*renderWindow))
+		botGameButtonClicked(window);
+	if (playerGameButton.isMouseOver(*renderWindow))
+		playerGameButtonClicked(window);
 }
 
 void MenuView::draw(sf::RenderWindow* window)
@@ -40,7 +43,8 @@ void MenuView::draw(sf::RenderWindow* window)
 	winningLineLengthMinusButton.draw(*window);
 	window->draw(winningLineLengthText);
 	winningLineLengthPlusButton.draw(*window);
-	submitButton.draw(*window);
+	botGameButton.draw(*window);
+	playerGameButton.draw(*window);
 }
 
 void MenuView::initChooseBoardSize()
@@ -111,11 +115,18 @@ void MenuView::initWinningLineLengthPlusButton()
 	winningLineLengthPlusButton.setCharacterSize(70);
 }
 
-void MenuView::initSubmitButton()
+void MenuView::initBotGameButton()
 {
-	submitButton.setButtonPosition(WINDOW_X_SIZE / 2 - SUBMIT_BUTTON_WIDTH / 2, LINE_5_HEIGHT);
-	submitButton.setTextPosition(WINDOW_X_SIZE / 2 - SUBMIT_BUTTON_WIDTH / 2 + 30, LINE_5_HEIGHT + 40);
-	submitButton.setCharacterSize(TEXT_SIZE);
+	botGameButton.setButtonPosition(WINDOW_X_SIZE / 4 - SUBMIT_BUTTON_WIDTH / 2, LINE_5_HEIGHT);
+	botGameButton.setTextPosition(WINDOW_X_SIZE / 4 - SUBMIT_BUTTON_WIDTH / 2 + 30, LINE_5_HEIGHT + 40);
+	botGameButton.setCharacterSize(TEXT_SIZE);
+}
+
+void MenuView::initPlayerGameButton()
+{
+	playerGameButton.setButtonPosition(WINDOW_X_SIZE * 3/ 4 - SUBMIT_BUTTON_WIDTH / 2, LINE_5_HEIGHT);
+	playerGameButton.setTextPosition(WINDOW_X_SIZE * 3 / 4 - SUBMIT_BUTTON_WIDTH / 2 + 30, LINE_5_HEIGHT + 40);
+	playerGameButton.setCharacterSize(TEXT_SIZE);
 }
 
 void MenuView::boardSizeMinusButtonClicked()
@@ -158,8 +169,14 @@ void MenuView::winningLineLengthPlusButtonClicked()
 	}
 }
 
-void MenuView::submitButtonClicked(Window* window)
+void MenuView::botGameButtonClicked(Window* window)
 {
-	GameView* gameView = new GameView(boardSizeNumber, winningLineLengthNumber);
+	GameView* gameView = new GameView(boardSizeNumber, winningLineLengthNumber, true);
+	window->changeView(gameView);
+}
+
+void MenuView::playerGameButtonClicked(Window* window)
+{
+	GameView* gameView = new GameView(boardSizeNumber, winningLineLengthNumber, false);
 	window->changeView(gameView);
 }

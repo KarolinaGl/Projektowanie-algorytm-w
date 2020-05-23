@@ -23,7 +23,8 @@ public:
 	Button boardSizeMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthPlusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "+");
-	Button submitButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "Submit");
+	Button botGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "with bot");
+	Button playerGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "with player");
 	int boardSizeNumber = 3;
 	int winningLineLengthNumber = 3;
 
@@ -49,7 +50,9 @@ public:
 
 	void initWinningLineLengthPlusButton();
 
-	void initSubmitButton();
+	void initBotGameButton();
+
+	void initPlayerGameButton();
 
 	void boardSizeMinusButtonClicked();
 
@@ -59,5 +62,7 @@ public:
 
 	void winningLineLengthPlusButtonClicked();
 
-	void submitButtonClicked(Window* window);
+	void botGameButtonClicked(Window* window);
+
+	void playerGameButtonClicked(Window* window);
 };

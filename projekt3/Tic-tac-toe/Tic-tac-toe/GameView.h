@@ -20,9 +20,8 @@ public:
 	std::vector<sf::RectangleShape> horizontalGridlines;
 	int boardSizeNumber = 3;
 	int winningLineLengthNumber = 3;
-	int clickCounter = 0;
 
-	GameView(int boardSizeNumber, int winningLineLengthNumber)
+	GameView(int boardSizeNumber, int winningLineLengthNumber, bool isBotGame)
 	{
 		this->boardSizeNumber = boardSizeNumber;
 		this->winningLineLengthNumber = winningLineLengthNumber;
@@ -30,7 +29,7 @@ public:
 		initBoardRectangle();
 		initGridlines("vertical", verticalGridlines);
 		initGridlines("horizontal", horizontalGridlines);
-		this->game = Game(&currentBoard);
+		this->game = Game(&currentBoard, isBotGame);
 	}
 
 	void handleEvent(sf::RenderWindow* renderWindow, Window* window);
@@ -44,6 +43,8 @@ public:
 	void initBoardRectangle();
 
 	void initGridlines(std::string direction, std::vector<sf::RectangleShape>& directionalGridlines);
+
+	bool isGameFinished(Window* window);
 };
 
 

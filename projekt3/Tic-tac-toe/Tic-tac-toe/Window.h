@@ -28,9 +28,7 @@ public:
 				if (event.type == sf::Event::Closed)
 					window->close();
 				if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-				{
 					view->handleEvent(window, this);
-				}
 			}
 			window->clear();
 
@@ -46,7 +44,3 @@ public:
 		view = newView;
 	}
 };
-
-void initializeGridlines(Board myBoard, std::string direction, std::vector<sf::RectangleShape>& gridlines, std::vector<sf::RectangleShape>& directionalGridlines, float boardSizeInPixels, float boardXOffset, float boardYOffset);
-
-char handleClick(Board& myBoard, sf::Event event, int& clickCounter, std::vector<sf::RectangleShape>& verticalGridlines, std::vector<sf::RectangleShape>& horizontalGridlines, float boardSizeInPixels);

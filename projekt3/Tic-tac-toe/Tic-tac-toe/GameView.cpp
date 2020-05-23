@@ -18,38 +18,16 @@ void GameView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
             row = i;
     }
 
+    game.fieldClicked(row, column); 
 
-    if (row != -1 && column != -1 && currentBoard.board[row][column] == ' ')
+    if (isGameFinished(window))
+        return;
+
+    if (game.isBotGame)
     {
-        clickCounter++;
-        if (clickCounter % 2 == 0)
-        {
-            currentBoard.board[row][column] = 'O';
-            if (game.isWon('O'))
-            {
-                std::cout << "O won\n";
-                ScoreView* scoreView = new ScoreView("O");
-                window->changeView(scoreView);
-                return;
-            }
-        }
-        else
-        {
-            currentBoard.board[row][column] = 'X';
-            if (game.isWon('X'))
-            {
-                std::cout << "X won\n";
-                ScoreView* scoreView = new ScoreView("X");
-                window->changeView(scoreView);
-                return;
-            }
-        }
-        if (game.isDraw())
-        {
-            std::cout << "Draw\n";
-            ScoreView* scoreView = new ScoreView(" ");
-            window->changeView(scoreView);
-        }
+        game.makeBotMove();
+        if (isGameFinished(window))
+            return;
     }
 }
 
@@ -116,4 +94,27 @@ void GameView::initGridlines(std::string direction, std::vector<sf::RectangleSha
         gridlines.push_back(line);
         directionalGridlines.push_back(line);
     }
+}
+
+bool GameView::isGameFinished(Window* window)
+{
+    if (game.isWon('O'))
+    {
+        ScoreView* scoreView = new ScoreView("O");
+        window->changeView(scoreView);
+        return true;
+    }
+    else if (game.isWon('X'))
+    {
+        ScoreView* scoreView = new ScoreView("X");
+        window->changeView(scoreView);
+        return true;
+    }
+    else if (game.isDraw())
+    {
+        ScoreView* scoreView = new ScoreView(" ");
+        window->changeView(scoreView);
+        return true;
+    }
+    return false;
 }

@@ -20,29 +20,13 @@ public:
 		initPlayAgainButton();
 	}
 
-	void draw(sf::RenderWindow* window)
-	{
-		window->draw(scoreText);
-		playAgainButton.draw(*window);
-	}
+	void handleEvent(sf::RenderWindow* renderWindow, Window* window);
 
-	void initScoreText()
-	{
-		if (winner == " ")
-			scoreText.setString("It's a draw!");
-		else
-			scoreText.setString(winner + " player won!");
-		scoreText.setFont(font);
-		scoreText.setCharacterSize(70);
-		scoreText.setFillColor(sf::Color::White);
-		scoreText.setStyle(sf::Text::Bold);
-		scoreText.setPosition(WINDOW_X_SIZE / 2 - scoreText.getLocalBounds().width / 2, 100);
-	}
+	void draw(sf::RenderWindow* window);
 
-	void initPlayAgainButton()
-	{
-		playAgainButton.setButtonPosition(WINDOW_X_SIZE / 2 - BUTTON_WIDTH / 2, WINDOW_Y_SIZE / 2);
-		playAgainButton.setTextPosition(WINDOW_X_SIZE / 2 - BUTTON_WIDTH / 2 + 30, WINDOW_Y_SIZE / 2 + 40);
-		playAgainButton.setCharacterSize(50);
-	}
+	void initScoreText();
+
+	void initPlayAgainButton();
+
+	void playAgainButtonClicked(Window* window);
 };
