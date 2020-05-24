@@ -23,12 +23,6 @@ void GameView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
     if (isGameFinished(window))
         return;
 
-    if (game.isBotGame)
-    {
-        game.makeBotMove();
-        if (isGameFinished(window))
-            return;
-    }
 }
 
 void GameView::draw(sf::RenderWindow* window)
@@ -117,4 +111,14 @@ bool GameView::isGameFinished(Window* window)
         return true;
     }
     return false;
+}
+
+void GameView::additionalAction(Window* window)
+{
+    if (game.isBotGame)
+    {
+        game.makeBotMove();
+        if (isGameFinished(window))
+            return;
+    }
 }

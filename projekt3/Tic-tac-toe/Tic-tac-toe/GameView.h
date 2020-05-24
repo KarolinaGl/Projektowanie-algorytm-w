@@ -45,6 +45,9 @@ public:
 	void initGridlines(std::string direction, std::vector<sf::RectangleShape>& directionalGridlines);
 
 	bool isGameFinished(Window* window);
+
+	void additionalAction(Window* window);
+
 };
 
 

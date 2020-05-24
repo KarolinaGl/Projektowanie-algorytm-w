@@ -12,16 +12,19 @@ public:
 	int currentNumberOfMarks = 0;
 	int maxNumberOfMarks;
     bool isBotGame;
+    bool isBotMove;
 
     Game() {}
 
 	Game(Board* currentBoard, bool isBotGame)
 	{
+        isBotMove = true;
         this->currentBoard = currentBoard;
 		maxNumberOfMarks = currentBoard->boardSize * currentBoard->boardSize;
         this->isBotGame = isBotGame;
         bot = BotPlayer(currentBoard);
-        makeBotMove();  // Je¿eli chcemy ¿eby bot by³ pierwszy
+        if (isBotGame)
+            makeBotMove();
     }
 
     bool isWon(char mark)
@@ -97,8 +100,11 @@ public:
 
     void makeBotMove()
     {
-        std::pair<int, int> rowAndColumn = findBestMove();
-        fieldClicked(rowAndColumn.first, rowAndColumn.second);
+        if (isBotMove)
+        {
+            std::pair<int, int> rowAndColumn = findBestMove();
+            fieldClicked(rowAndColumn.first, rowAndColumn.second);
+        }
     }
 
     void fieldClicked(int row, int column)
@@ -106,6 +112,7 @@ public:
         if (row != -1 && column != -1 && currentBoard->board[row][column] == ' ')
         {
             currentNumberOfMarks++;
+            isBotMove = !isBotMove;
             if (currentNumberOfMarks % 2 == 0)
                 currentBoard->board[row][column] = 'O';
             else
@@ -122,7 +129,7 @@ public:
         return 0;
     }
 
-    int miniMax(Board* currentBoard, int depth, bool isMax)
+    int miniMax(Board* currentBoard, int depth, int alpha, int beta, bool isMax)
     {
         int score = evaluate(currentBoard);
 
@@ -145,10 +152,12 @@ public:
                     if (currentBoard->board[i][j] == ' ')
                     {
                         currentBoard->board[i][j] == bot.botMark;
-
-                        best = std::max(best, miniMax(currentBoard, depth - 1, false));
-
+                        int eval = miniMax(currentBoard, depth - 1, alpha, beta, false);
+                        best = std::max(best, eval);
+                        alpha = std::max(alpha, eval);
                         currentBoard->board[i][j] = ' ';
+                        if (beta <= alpha)
+                            break;
                     }
                 }
             }
@@ -164,10 +173,13 @@ public:
                     if (currentBoard->board[i][j] == ' ')
                     {
                         currentBoard->board[i][j] == bot.playerMark;
-
-                        best = std::min(best, miniMax(currentBoard, depth - 1, true));
-
+                        int eval = miniMax(currentBoard, depth - 1, alpha, beta, true);
+                        best = std::min(best, eval);
+                      
                         currentBoard->board[i][j] = ' ';
+                        beta = std::min(beta, eval);
+                        if (beta <= alpha)
+                            break;
                     }
                 }
             }
@@ -178,9 +190,7 @@ public:
     std::pair<int, int> findBestMove()
     {
         int bestValue = -1000;
-        std::pair<int, int> bestMove;
-        bestMove.first = -1;
-        bestMove.second = -1;
+        std::pair<int, int> bestMove = {-1, -1};
 
         for (int i = 0; i < currentBoard->boardSize; ++i)
         {
@@ -190,14 +200,13 @@ public:
                 {
                     currentBoard->board[i][j] = bot.botMark;
 
-                    int moveValue = miniMax(currentBoard, 3, false);
+                    int moveValue = miniMax(currentBoard, 9, -100000, 100000, false);
 
                     currentBoard->board[i][j] = ' ';
 
                     if (moveValue > bestValue)
                     {
-                        bestMove.first = i;
-                        bestMove.second = j;
+                        bestMove = { i, j };
                         bestValue = moveValue;
                     }
                 }
@@ -207,5 +216,4 @@ public:
 
         return bestMove;
     }
-
 };

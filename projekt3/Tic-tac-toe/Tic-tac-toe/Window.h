@@ -35,6 +35,14 @@ public:
 			view->draw(window);
 
 			window->display();
+
+			view->additionalAction(this);
+
+			window->clear();
+
+			view->draw(window);
+
+			window->display();
 		}
 	}
 

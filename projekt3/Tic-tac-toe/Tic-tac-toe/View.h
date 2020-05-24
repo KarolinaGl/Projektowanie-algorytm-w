@@ -17,4 +17,6 @@ public:
 	virtual void handleEvent(sf::RenderWindow* renderWindow, Window* window) {}
 
 	virtual void draw(sf::RenderWindow* window) {}
+
+	virtual void additionalAction(Window* window) {}
 };
