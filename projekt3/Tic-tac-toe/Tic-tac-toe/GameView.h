@@ -47,7 +47,4 @@ public:
 	bool isGameFinished(Window* window);
 
 	void additionalAction(Window* window);
-
 };
-
-

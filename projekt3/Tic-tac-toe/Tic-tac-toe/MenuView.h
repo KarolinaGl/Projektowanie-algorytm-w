@@ -23,8 +23,8 @@ public:
 	Button boardSizeMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthPlusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "+");
-	Button botGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "with bot");
-	Button playerGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "with player");
+	Button botGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "vs bot");
+	Button playerGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "vs player");
 	int boardSizeNumber = 3;
 	int winningLineLengthNumber = 3;
 

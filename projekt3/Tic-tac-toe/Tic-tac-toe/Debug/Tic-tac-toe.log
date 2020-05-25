@@ -1,12 +1,32 @@
-﻿  main.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(190,107): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+﻿  Board.cpp
+  Button.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.cpp(5,15): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=float
+              T=int
           ]
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\main.cpp(193,107): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Button.cpp(6,15): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
-              T=float
+              T=int
           ]
+  GameView.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(221,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(242,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(42,27): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(84,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(87,89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  main.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(221,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(242,51): warning C4553: '==': result of expression not used; did you intend '='?
+  MenuView.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(221,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(242,51): warning C4553: '==': result of expression not used; did you intend '='?
+  ScoreView.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(221,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(242,51): warning C4553: '==': result of expression not used; did you intend '='?
+  Window.cpp
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(221,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(242,51): warning C4553: '==': result of expression not used; did you intend '='?
+  Generating Code...
   Tic-tac-toe.vcxproj -> D:\sem4\PAMSI\projekt3\Tic-tac-toe\Debug\Tic-tac-toe.exe

@@ -1,24 +1,19 @@
 ﻿  GameView.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(154,51): warning C4553: '==': result of expression not used; did you intend '='?
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(175,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(298,31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
 D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(42,27): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(84,73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\GameView.cpp(87,89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   MenuView.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(154,51): warning C4553: '==': result of expression not used; did you intend '='?
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(175,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(298,31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   ScoreView.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(154,51): warning C4553: '==': result of expression not used; did you intend '='?
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(175,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(298,31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Window.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(154,51): warning C4553: '==': result of expression not used; did you intend '='?
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(175,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(298,31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   main.cpp
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(154,51): warning C4553: '==': result of expression not used; did you intend '='?
-D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(175,51): warning C4553: '==': result of expression not used; did you intend '='?
+D:\sem4\PAMSI\projekt3\Tic-tac-toe\Tic-tac-toe\Game.h(298,31): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
   Generating code
-  5 of 433 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
+  5 of 432 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    6 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Tic-tac-toe.vcxproj -> D:\sem4\PAMSI\projekt3\Tic-tac-toe\Release\Tic-tac-toe.exe
