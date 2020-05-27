@@ -263,11 +263,7 @@ std::pair<int, int> Game::findBestMove()
                 currentBoard->board[i][j] = bot.botMark;
                 currentNumberOfMarks++;
                 int depth = std::round(15 / currentBoard->boardSize);
-                std::cout << "depth= " << depth << "\n";
                 moveValue = miniMax(currentBoard, depth, -9999999999999, 9999999999999, false);
-
-                std::cout << "move = (" << i << ", " << j << ") ";
-                std::cout << "value = " << moveValue << "\n";
                 currentBoard->board[i][j] = ' ';
                 currentNumberOfMarks--;
                 if (moveValue > bestValue)
@@ -278,7 +274,5 @@ std::pair<int, int> Game::findBestMove()
             }
         }
     }
-    std::cout << "The value of the best Move is : " << bestValue << "\n\n";
-
     return bestMove;
 }
