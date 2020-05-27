@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Button.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuView.cpp" />

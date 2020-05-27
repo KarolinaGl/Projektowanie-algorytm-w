@@ -7,8 +7,9 @@
 #define LINE_3_HEIGHT 250
 #define LINE_4_HEIGHT 350
 #define LINE_5_HEIGHT 450
+#define LINE_6_HEIGHT 570
 #define SQUARE_BUTTON_SIZE 50
-#define SUBMIT_BUTTON_WIDTH 200
+#define SUBMIT_BUTTON_WIDTH 250
 #define SUBMIT_BUTTON_HEIGHT 100
 
 class MenuView : public View
@@ -23,8 +24,8 @@ public:
 	Button boardSizeMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthMinusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "-");
 	Button winningLineLengthPlusButton = Button(SQUARE_BUTTON_SIZE, SQUARE_BUTTON_SIZE, "+");
-	Button botGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "vs bot");
-	Button playerGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "vs player");
+	Button botGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "vs. AI");
+	Button playerGameButton = Button(SUBMIT_BUTTON_WIDTH, SUBMIT_BUTTON_HEIGHT, "vs. player");
 	int boardSizeNumber = 3;
 	int winningLineLengthNumber = 3;
 

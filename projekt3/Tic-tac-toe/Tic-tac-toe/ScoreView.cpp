@@ -1,6 +1,14 @@
 #include "ScoreView.h"
 #include "Window.h"
 
+ScoreView::ScoreView(std::string winner)
+{
+	this->winner = winner;
+	font.loadFromFile("arial.ttf");
+	initScoreText();
+	initPlayAgainButton();
+}
+
 void ScoreView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
 {
 	if (playAgainButton.isMouseOver(*renderWindow))

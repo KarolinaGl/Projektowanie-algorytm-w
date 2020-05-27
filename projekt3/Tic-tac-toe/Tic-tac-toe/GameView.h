@@ -18,19 +18,12 @@ public:
 	std::vector<sf::RectangleShape> gridlines;
 	std::vector<sf::RectangleShape> verticalGridlines;
 	std::vector<sf::RectangleShape> horizontalGridlines;
+	sf::Font font;
+	sf::Text whoseTurnText;
 	int boardSizeNumber = 3;
 	int winningLineLengthNumber = 3;
 
-	GameView(int boardSizeNumber, int winningLineLengthNumber, bool isBotGame)
-	{
-		this->boardSizeNumber = boardSizeNumber;
-		this->winningLineLengthNumber = winningLineLengthNumber;
-		initBoard();
-		initBoardRectangle();
-		initGridlines("vertical", verticalGridlines);
-		initGridlines("horizontal", horizontalGridlines);
-		this->game = Game(&currentBoard, isBotGame);
-	}
+	GameView(int boardSizeNumber, int winningLineLengthNumber, bool isBotGame);
 
 	void handleEvent(sf::RenderWindow* renderWindow, Window* window);
 
@@ -46,5 +39,9 @@ public:
 
 	bool isGameFinished(Window* window);
 
+	void switchWindow(Window* window);
+
 	void additionalAction(Window* window);
+
+	void initWhoseTurnText();
 };

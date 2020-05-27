@@ -12,13 +12,7 @@ public:
 	sf::Text scoreText;
 	Button playAgainButton = Button(BUTTON_WIDTH, BUTTON_HEIGHT, "Play again");
 
-	ScoreView(std::string winner)
-	{
-		this->winner = winner;
-		font.loadFromFile("arial.ttf");
-		initScoreText();
-		initPlayAgainButton();
-	}
+	ScoreView(std::string winner);
 
 	void handleEvent(sf::RenderWindow* renderWindow, Window* window);
 

@@ -1,6 +1,18 @@
 #include "GameView.h"
 #include "Window.h"
 
+GameView::GameView(int boardSizeNumber, int winningLineLengthNumber, bool isBotGame)
+{
+    this->boardSizeNumber = boardSizeNumber;
+    this->winningLineLengthNumber = winningLineLengthNumber;
+    initBoard();
+    initBoardRectangle();
+    initWhoseTurnText();
+    initGridlines("vertical", verticalGridlines);
+    initGridlines("horizontal", horizontalGridlines);
+    this->game = Game(&currentBoard, isBotGame);
+}
+
 void GameView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
 {
     int row = -1;
@@ -8,25 +20,36 @@ void GameView::handleEvent(sf::RenderWindow* renderWindow, Window* window)
     for (int i = 0; i < currentBoard.boardSize; ++i)
     {
         sf::Vector2f verticalLinePosition = verticalGridlines[i].getPosition();
-        if (sf::Mouse::getPosition(*renderWindow).x >= verticalLinePosition.x && sf::Mouse::getPosition(*renderWindow).x < verticalLinePosition.x + BOARD_SIZE_IN_PIXELS / currentBoard.boardSize)
+        if (sf::Mouse::getPosition(*renderWindow).x >= verticalLinePosition.x &&
+            sf::Mouse::getPosition(*renderWindow).x < verticalLinePosition.x + BOARD_SIZE_IN_PIXELS / currentBoard.boardSize)
             column = i;
     }
     for (int i = 0; i < currentBoard.boardSize; ++i)
     {
         sf::Vector2f horizontalLinePosition = horizontalGridlines[i].getPosition();
-        if (sf::Mouse::getPosition(*renderWindow).y >= horizontalLinePosition.y && sf::Mouse::getPosition(*renderWindow).y < horizontalLinePosition.y + BOARD_SIZE_IN_PIXELS / currentBoard.boardSize)
+        if (sf::Mouse::getPosition(*renderWindow).y >= horizontalLinePosition.y &&
+            sf::Mouse::getPosition(*renderWindow).y < horizontalLinePosition.y + BOARD_SIZE_IN_PIXELS / currentBoard.boardSize)
             row = i;
     }
 
     game.fieldClicked(row, column); 
 
-    if (isGameFinished(window))
-        return;
+    if (currentBoard.board[row][column] == 'X')
+        whoseTurnText.setString("O player's turn");
+    else if (currentBoard.board[row][column] == 'O')
+        whoseTurnText.setString("X player's turn");
 
+    if (isGameFinished(window))
+    {
+        whoseTurnText.setString("");
+        return;
+    }
 }
 
 void GameView::draw(sf::RenderWindow* window)
 {
+    window->draw(whoseTurnText);
+
 	window->draw(boardRectangle);
     for (unsigned int i = 0; i < gridlines.size(); ++i)
         window->draw(gridlines[i]);
@@ -39,7 +62,7 @@ void GameView::draw(sf::RenderWindow* window)
 
 void GameView::drawMark(sf::RenderWindow& window, int i, int j, char mark)
 {
-    float gridlineSpacing = BOARD_SIZE_IN_PIXELS / boardSizeNumber;
+    float gridlineSpacing = (float) BOARD_SIZE_IN_PIXELS / boardSizeNumber;
     if (mark == 'X')
     {
         sf::RectangleShape crossMark1(sf::Vector2f((gridlineSpacing - 2 * MARK_OFFSET) * (float)sqrt(2), 5));
@@ -81,10 +104,10 @@ void GameView::initGridlines(std::string direction, std::vector<sf::RectangleSha
         if (direction == "vertical")
         {
             line.rotate(90);
-            line.setPosition(i * BOARD_SIZE_IN_PIXELS / boardSizeNumber + BOARD_X_OFFSET, BOARD_Y_OFFSET);
+            line.setPosition(i * (float) BOARD_SIZE_IN_PIXELS / boardSizeNumber + BOARD_X_OFFSET, BOARD_Y_OFFSET);
         }
         else
-            line.setPosition(BOARD_X_OFFSET, i * BOARD_SIZE_IN_PIXELS / boardSizeNumber + BOARD_Y_OFFSET);
+            line.setPosition(BOARD_X_OFFSET, i * (float) BOARD_SIZE_IN_PIXELS / boardSizeNumber + BOARD_Y_OFFSET);
         gridlines.push_back(line);
         directionalGridlines.push_back(line);
     }
@@ -93,32 +116,62 @@ void GameView::initGridlines(std::string direction, std::vector<sf::RectangleSha
 bool GameView::isGameFinished(Window* window)
 {
     if (game.isWon('O'))
+        return true;
+    else if (game.isWon('X'))
+        return true;
+    else if (game.isDraw())
+        return true;
+    return false;
+}
+
+void GameView::switchWindow(Window* window)
+{
+    if (game.isWon('O'))
     {
+        whoseTurnText.setString("");
+        draw(window->window);
         ScoreView* scoreView = new ScoreView("O");
         window->changeView(scoreView);
-        return true;
     }
     else if (game.isWon('X'))
     {
+        whoseTurnText.setString("");
+        draw(window->window);
         ScoreView* scoreView = new ScoreView("X");
         window->changeView(scoreView);
-        return true;
     }
     else if (game.isDraw())
-    {
+    {        
+        whoseTurnText.setString("");
+        draw(window->window);
         ScoreView* scoreView = new ScoreView(" ");
         window->changeView(scoreView);
-        return true;
     }
-    return false;
 }
 
 void GameView::additionalAction(Window* window)
 {
+    if (isGameFinished(window)) {
+        whoseTurnText.setString("");
+        sleep_for(2s);
+        switchWindow(window);
+        return;
+    }
     if (game.isBotGame)
     {
+        whoseTurnText.setString("X player's turn");
         game.makeBotMove();
-        if (isGameFinished(window))
-            return;
+        whoseTurnText.setString("O player's turn");
     }
+}
+
+void GameView::initWhoseTurnText()
+{
+    font.loadFromFile("arial.ttf");
+    whoseTurnText.setFont(font);
+    whoseTurnText.setCharacterSize(TEXT_SIZE);
+    whoseTurnText.setString("X player's turn");
+    whoseTurnText.setFillColor(sf::Color::White);
+    whoseTurnText.setStyle(sf::Text::Bold);
+    whoseTurnText.setPosition(WINDOW_X_SIZE / 2 - whoseTurnText.getLocalBounds().width / 2, LINE_6_HEIGHT);
 }

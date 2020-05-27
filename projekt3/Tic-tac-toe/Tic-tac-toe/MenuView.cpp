@@ -118,7 +118,7 @@ void MenuView::initWinningLineLengthPlusButton()
 void MenuView::initBotGameButton()
 {
 	botGameButton.setButtonPosition(WINDOW_X_SIZE / 4 - SUBMIT_BUTTON_WIDTH / 2, LINE_5_HEIGHT);
-	botGameButton.setTextPosition(WINDOW_X_SIZE / 4 - SUBMIT_BUTTON_WIDTH / 2 + 30, LINE_5_HEIGHT + 40);
+	botGameButton.setTextPosition(WINDOW_X_SIZE / 4 - SUBMIT_BUTTON_WIDTH / 2 + 70, LINE_5_HEIGHT + 40);
 	botGameButton.setCharacterSize(TEXT_SIZE);
 }
 

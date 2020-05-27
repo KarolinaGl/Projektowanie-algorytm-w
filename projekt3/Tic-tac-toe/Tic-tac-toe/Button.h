@@ -10,18 +10,7 @@ public:
 	sf::Text text;
 	sf::Font font;
 
-	Button(float XSize, float YSize, std::string buttonText)
-	{
-		width = XSize;
-		height = YSize;
-		button = sf::RectangleShape(sf::Vector2f(width, height));
-		button.setFillColor(sf::Color::White);
-		font.loadFromFile("arial.ttf");
-		text.setString(buttonText);
-		text.setStyle(sf::Text::Bold);
-		text.setFont(font);
-		text.setFillColor(sf::Color::Black);
-	}
+	Button(float XSize, float YSize, std::string buttonText);
 
 	void setCharacterSize(int size)
 	{

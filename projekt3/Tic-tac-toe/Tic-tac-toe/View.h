@@ -9,10 +9,7 @@ class View
 {
 public:
 
-	View()
-	{
-
-	}
+	View() {}
 
 	virtual void handleEvent(sf::RenderWindow* renderWindow, Window* window) {}
 
